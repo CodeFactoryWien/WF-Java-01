@@ -1,5 +1,6 @@
 package com.blackwhite;
 
+import com.blackwhite.ctrl.FxController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,13 +11,13 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-//    private static FxController controller;
+    private static FxController controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(Main.class.getResourceAsStream("/reception.fxml"));
-//        controller = loader.getController();
+        controller = loader.getController();
         Scene scene = new Scene(root, 900, 500);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
         primaryStage.setTitle("Hello World");
