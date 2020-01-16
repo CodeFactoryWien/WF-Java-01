@@ -5,6 +5,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -24,7 +27,7 @@ public class Main extends Application {
         primaryStage.setMinHeight(400);
         primaryStage.setMinWidth(600);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Hotel Black & White");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
