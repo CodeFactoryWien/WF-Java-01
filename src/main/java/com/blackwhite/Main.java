@@ -18,7 +18,11 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(Main.class.getResourceAsStream("/reception_scenebuilder.fxml"));
         controller = loader.getController();
-        Scene scene = new Scene(root, 900, 500);
+        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setMaxWidth(600);
+        primaryStage.setMaxHeight(400);
+        primaryStage.setMinHeight(400);
+        primaryStage.setMinWidth(600);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
