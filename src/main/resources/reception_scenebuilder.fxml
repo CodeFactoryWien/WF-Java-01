@@ -285,6 +285,7 @@
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
           </GridPane>
+          <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Check-out"/>
           <HBox prefHeight="144.0" prefWidth="390.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"
                        preserveRatio="true">
