@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(Main.class.getResourceAsStream("/reception.fxml"));
+        Parent root = loader.load(Main.class.getResourceAsStream("/reception_scenebuilder.fxml"));
         controller = loader.getController();
         Scene scene = new Scene(root, 900, 500);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());

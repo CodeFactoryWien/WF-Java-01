@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+
+<AnchorPane id="AnchorPane" fx:controller="com.blackwhite.ctrl.FxController" blendMode="SRC_OVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Home">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <HBox alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="369.0" prefWidth="600.0" />
+                <ImageView fitHeight="383.75" fitWidth="383.75" layoutX="108.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="./logo_schrift.png" />
+                  </image>
+                </ImageView>
+                <Label layoutX="240.0" layoutY="2.0" text="Hotel">
+                  <font>
+                    <Font size="50.0" />
+                  </font>
+                </Label>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Room">
+          <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+              <children>
+                <VBox alignment="BOTTOM_LEFT" blendMode="SRC_OVER" layoutX="0.0" layoutY="0.0" prefHeight="369.0" prefWidth="400.0">
+                  <children>
+                    <GridPane alignment="CENTER" prefHeight="164.0" prefWidth="390.0">
+                      <children>
+                        <Label alignment="TOP_LEFT" contentDisplay="RIGHT" prefHeight="21.999908447265625" text="Room Number:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.999908447265625" text="Type:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label prefHeight="21.999908447265625" text="Size:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <ChoiceBox prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <children>
+                            <TextField prefWidth="59.0">
+                              <HBox.margin>
+                                <Insets right="5.0" fx:id="x5" />
+                              </HBox.margin>
+                            </TextField>
+                            <Label text="m²" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <children>
+                            <TextField prefWidth="200.0" />
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="131.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="269.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <HBox alignment="CENTER" prefHeight="40.0" prefWidth="390.0">
+                      <children>
+                        <Button mnemonicParsing="false" prefWidth="59.0" text="Add" />
+                        <Button mnemonicParsing="false" text="Update">
+                          <HBox.margin>
+                            <Insets left="5.0" right="5.0" fx:id="x1" />
+                          </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="59.0" text="Delete" />
+                      </children>
+                    </HBox>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                        <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="./logo_schrift.png" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+                <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Guest">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0" />
+                <VBox alignment="TOP_RIGHT" layoutX="0.0" layoutY="0.0" padding="$x2" prefHeight="369.0" prefWidth="400.0000999999975">
+                  <children>
+                    <GridPane prefHeight="245.0" prefWidth="391.0">
+                      <children>
+                        <Label text="Id:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label text="Adress:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <Label text="Document-Number:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                        <Button mnemonicParsing="false" prefWidth="59.0" text="Add" />
+                        <Button mnemonicParsing="false" text="Update" HBox.margin="$x1" />
+                        <Button mnemonicParsing="false" prefWidth="59.0" text="Delete" />
+                      </children>
+                    </HBox>
+                    <HBox prefHeight="144.0" prefWidth="390.0">
+                      <children>
+                        <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="./logo_schrift.png" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Check-in">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <VBox alignment="TOP_RIGHT" layoutX="0.0" layoutY="0.0" prefHeight="369.0" prefWidth="400.0">
+                  <children>
+                    <GridPane prefHeight="205.0" prefWidth="400.0">
+                      <children>
+                        <Label text="Room:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Payment System Id:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Main-Guest:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                        <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                        <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <padding>
+                        <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" fx:id="x3" />
+                      </padding>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Check - in" />
+                    <HBox prefHeight="144.0" prefWidth="391.0">
+                      <children>
+                        <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="./logo_schrift.png" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </HBox>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+                  </padding>
+                </VBox>
+                <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="199.99990000000253" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="current Occupation">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0" />
+                <VBox layoutX="0.0" layoutY="0.0" prefHeight="225.0" prefWidth="400.0">
+                  <children>
+                    <GridPane padding="$x3" prefHeight="191.0" prefWidth="400.0">
+                      <children>
+                        <Label text="Room Number:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Check-in date:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Main Guest:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="add additional Guest:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <children>
+                            <ChoiceBox prefWidth="136.0">
+                              <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Item 1" />
+                                  <String fx:value="Item 2" />
+                                  <String fx:value="Item 3" />
+                                </FXCollections>
+                              </items>
+                            </ChoiceBox>
+                            <Button mnemonicParsing="false" text="Add">
+                              <HBox.margin>
+                                <Insets left="5.0" fx:id="x4" />
+                              </HBox.margin>
+                            </Button>
+                          </children>
+                        </HBox>
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </VBox>
+                <ListView layoutX="149.0" layoutY="191.0" prefHeight="178.0" prefWidth="252.0" />
+                <VBox alignment="BOTTOM_LEFT" layoutX="0.0" layoutY="225.0" prefHeight="145.0" prefWidth="150.0">
+                  <children>
+                    <ImageView fitHeight="144.00009155273438" fitWidth="144.00009155273438" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="./logo_schrift.png" />
+                      </image>
+                    </ImageView>
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Check-out">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <VBox layoutX="0.0" layoutY="1.0" prefHeight="369.0000915527344" prefWidth="400.0">
+                  <children>
+                    <GridPane padding="$x3" prefHeight="246.0" prefWidth="400.0">
+                      <children>
+                        <Label text="Room:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Check-out date:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="additional Services:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <children>
+                            <CheckBox mnemonicParsing="false" text="WLAN" />
+                            <CheckBox mnemonicParsing="false" text="Extra Bed" />
+                            <HBox prefHeight="100.0" prefWidth="200.0">
+                              <children>
+                                <Label text="Breakfast" />
+                                <TextField prefHeight="17.0" prefWidth="49.0" HBox.margin="$x4" />
+                              </children>
+                            </HBox>
+                          </children>
+                        </VBox>
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <HBox prefHeight="144.0" prefWidth="390.0">
+                      <children>
+                        <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="./logo_schrift.png" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+                <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Payment">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <VBox alignment="TOP_RIGHT" layoutX="0.0" layoutY="0.0" prefHeight="368.0" prefWidth="400.0">
+                  <children>
+                    <GridPane padding="$x3" prefHeight="244.0" prefWidth="390.0">
+                      <children>
+                        <Label text="Id:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Payment-Method:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Payment-Status:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Amount:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label text="SystemId:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <children>
+                            <TextField alignment="TOP_LEFT" prefWidth="172.0" HBox.margin="$x5" />
+                            <Label text="€" />
+                          </children>
+                        </HBox>
+                        <ChoiceBox prefWidth="172.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <children>
+                            <TextField alignment="CENTER_LEFT" prefWidth="172.00009999999747" />
+                          </children>
+                        </HBox>
+                        <ChoiceBox prefWidth="172.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                          <children>
+                            <TextField alignment="CENTER_LEFT" prefWidth="172.0" />
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                        <Button mnemonicParsing="false" prefWidth="59.0" text="Add" />
+                        <Button mnemonicParsing="false" text="Update" HBox.margin="$x1" />
+                        <Button mnemonicParsing="false" prefWidth="59.0" text="Delete" />
+                      </children>
+                    </HBox>
+                    <HBox prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                        <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="./logo_schrift.png" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+                <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="199.99990000000253" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="waiting Time">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ImageView fitHeight="366.9999967910015" fitWidth="550.5000305175781" layoutX="25.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="./tv.jpg" />
+                  </image>
+                </ImageView>
+                <WebView fx:id="webview" layoutX="75.0" layoutY="45.0" prefHeight="276.0" prefWidth="366.0" style="-fx-border-radius: 10 10 10 10" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+</AnchorPane>
