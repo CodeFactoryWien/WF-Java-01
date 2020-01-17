@@ -5,9 +5,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -32,14 +29,14 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-//    @Override
-//    public void stop() {
-//        try {
-//            controller.closeConnection();
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void stop() {
+        try {
+            controller.closeConnection();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);

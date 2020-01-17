@@ -54,4 +54,20 @@ public class RoomDAO {
         return FXCollections.observableArrayList(rooms);
     }
 
+    public ObservableList<RoomType> getRoomTypes() throws SQLException {
+        String sql = "SELECT * FROM type;";
+        ResultSet data = statement.executeQuery(sql);
+        ArrayList<RoomType> types = new ArrayList<>();
+
+        while (data.next()) {
+            RoomType type = new RoomType();
+            type.setTypeID(data.getInt("id"));
+            type.setCapacity(data.getInt("capacity"));
+            type.setPrice(data.getInt("price"));
+            type.setEquipment(data.getString("equipment"));
+            type.setDescription(data.getString("description"));
+            types.add(type);
+        }
+        return FXCollections.observableList(types);
+    }
 }
