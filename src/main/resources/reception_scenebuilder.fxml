@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<AnchorPane fx:controller="com.blackwhite.ctrl.FxController" blendMode="SRC_OVER" prefHeight="400.0" prefWidth="600.0"
+<AnchorPane fx:controller="com.blackwhite.ctrl.FxController" blendMode="SRC_OVER" prefHeight="600.0" prefWidth="600.0"
             xmlns:fx="http://javafx.com/fxml">
   <TabPane prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE">
     <Tab text="Home">
@@ -60,7 +60,7 @@
             </ChoiceBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
                   GridPane.rowIndex="2">
-              <TextField prefWidth="59.0">
+              <TextField prefWidth="59.0" fx:id="sizeContent">
                 <HBox.margin>
                   <Insets right="5.0" fx:id="x5"/>
                 </HBox.margin>
@@ -69,7 +69,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
                   GridPane.rowIndex="0">
-              <TextField prefWidth="200.0"/>
+              <TextField prefWidth="200.0" fx:id="roomNumberContent"/>
             </HBox>
           </GridPane>
           <HBox alignment="CENTER" prefHeight="40.0" prefWidth="390.0">
@@ -88,7 +88,7 @@
             </ImageView>
           </HBox>
         </VBox>
-        <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0"/>
+        <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0" fx:id="roomList"/>
       </AnchorPane>
     </Tab>
     <Tab text="Guest">
