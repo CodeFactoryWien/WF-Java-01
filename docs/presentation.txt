@@ -1,0 +1,50 @@
+Talk about the team.
+-wolfgang is leader! we have to mention it as often we can!
+-Talk about how we made decisions.
+-working together without any dicussions and problems.
+-NO MERGE CONFLICTS !!!!!!1111
+-Shared responsibilities.
+-we found a place for everybody´s ideas.
+-We learned a lot!
+
+
+
+Talk about the database.
+-how it should work and why we decided to do it the way we did.
+-explain the use of foreign keys. -> which
+-filled with random data. -> filled by hand with SQL query.
+-Database was exported and imported, so everybody could use it.!.
+-we used phpMyAdmin !!!!! and Xampp !!!!
+-We used a random generator to generate data. -> which we found on the internet and it was free to use!
+
+
+
+
+Trello - what we did in week one / week two.
+-team builing -> talking with each other -> laughing with each other (happyness was very important) -> 
+-start creating the program -> start wednesday -> program worked without functions on friday -> started functionality on monday -> estimated time.
+-database -> day 1 & 2. fertich
+-design -> keep it simple -> scene builder -> we used more scenes(tabs) -> white & black as color scheme -> every tab must have a listview -> retro TV for relaxing.
+-daily sprints. -> Everyday at 10pm & 16pm talking about our projects, -> fining new ideas -> review -> push/pull -> trying to be flexible ( like a flexbox). -> we decided to don´t do the additional tasks!
+-golden rules. -> we use underscore in the database, camelcase in intelliJ -> not working in our free time!!!
+-what blabla we do blabla when bla we have bla time.
+-finishing the program.
+
+/*
+-open the app
+*/
+
+
+Talk about the program.
+-how it works.
+-what we did to let it work.
+-what problems we had.
+
+
+
+In generel
+-how much time consumed with which topic.
+-how to increase our performance for the next project - tips!
+-at the end -> mention that do the presentation in black and white!
+-meinungsumfragen.
+-We created an icon !!!!
