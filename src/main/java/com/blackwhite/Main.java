@@ -5,7 +5,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -26,6 +29,10 @@ public class Main extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
         primaryStage.setTitle("Hotel Black & White");
         primaryStage.setScene(scene);
+        //Icon
+        InputStream input = this.getClass().getResourceAsStream("/logo_icon.png");
+        Image image = new Image(input);
+        primaryStage.getIcons().add(image);
         primaryStage.show();
     }
 
