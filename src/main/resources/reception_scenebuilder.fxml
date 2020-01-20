@@ -65,13 +65,13 @@
             </HBox>
           </GridPane>
           <HBox alignment="CENTER" prefHeight="40.0" prefWidth="390.0">
-            <Button mnemonicParsing="false" prefWidth="59.0" text="Add"/>
-            <Button mnemonicParsing="false" text="Update">
+            <Button mnemonicParsing="false" prefWidth="59.0" text="Add" onAction="#createRoom"/>
+            <Button mnemonicParsing="false" text="Update" onAction="#updateRoom">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x1"/>
               </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="59.0" text="Delete"/>
+            <Button mnemonicParsing="false" prefWidth="59.0" text="Delete" onAction="#deleteRoom"/>
           </HBox>
           <HBox prefHeight="100.0" prefWidth="200.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"
@@ -103,13 +103,11 @@
               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Label text="Id:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
             <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
             <Label text="Adress:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
             <Label text="Document-Number:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="guestid"/>
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="firstnameid"/>
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="lastnameid"/>
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="emailid"/>
@@ -117,9 +115,9 @@
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="documentid"/>
           </GridPane>
           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <Button mnemonicParsing="false" prefWidth="59.0" text="Add"/>
-            <Button mnemonicParsing="false" text="Update" HBox.margin="$x1"/>
-            <Button mnemonicParsing="false" prefWidth="59.0" text="Delete"/>
+            <Button mnemonicParsing="false" prefWidth="59.0" text="Add" onAction="#addGuest"/>
+            <Button mnemonicParsing="false" text="Update" HBox.margin="$x1" onAction="#updateGuest"/>
+            <Button mnemonicParsing="false" prefWidth="59.0" text="Delete" onAction="#deleteGuest"/>
           </HBox>
           <HBox prefHeight="144.0" prefWidth="390.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"

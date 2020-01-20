@@ -34,7 +34,7 @@ public class Main extends Application {
         try {
             controller.closeConnection();
         } catch (SQLException e){
-            e.printStackTrace();
+            // do nothing
         }
     }
 

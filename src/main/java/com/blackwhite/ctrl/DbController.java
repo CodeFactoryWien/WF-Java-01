@@ -15,7 +15,7 @@ public class DbController {
     private DbController() throws SQLException, ClassNotFoundException {
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL, DB_User, DB_Pass);
-        conn.setReadOnly(true);
+        conn.setReadOnly(false);
     }
 
     public Connection getConnection() {
