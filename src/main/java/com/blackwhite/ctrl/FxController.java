@@ -1,8 +1,6 @@
 package com.blackwhite.ctrl;
 
-import com.blackwhite.db.Room;
-import com.blackwhite.db.RoomDAO;
-import com.blackwhite.db.RoomType;
+import com.blackwhite.db.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -16,6 +14,20 @@ import java.util.ResourceBundle;
 
 public class FxController implements Initializable {
     @FXML
+    private TextField documentid;
+    @FXML
+    private TextField addressid;
+    @FXML
+    private TextField emailid;
+    @FXML
+    private TextField lastnameid;
+    @FXML
+    private TextField firstnameid;
+    @FXML
+    private TextField guestid;
+    @FXML
+    private ListView<Guest> guestlist;
+    @FXML
     private ChoiceBox<RoomType> typeList;
     @FXML
     private TextField sizeContent;
@@ -26,19 +38,33 @@ public class FxController implements Initializable {
     @FXML
     private WebView webview;
     private RoomDAO roomDB;
+    private GuestDAO guestDB;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             roomDB = new RoomDAO();
+            guestDB = new GuestDAO();
             typeList.setItems(roomDB.getRoomTypes());
             roomList.setItems(roomDB.getAllRooms());
+            guestlist.setItems(guestDB.getAllGuests());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         roomList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             roomNumberContent.setText(Integer.toString(newValue.getRoomNumber()));
             sizeContent.setText(Integer.toString(newValue.getSize()));
+        });
+
+        guestlist.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            guestid.setText(Integer.toString(newValue.getId()));
+            firstnameid.setText(newValue.getFirstName());
+            lastnameid.setText(newValue.getLastName());
+            emailid.setText(newValue.getEmail());
+            addressid.setText(newValue.getAddress());
+            documentid.setText(Integer.toString(newValue.getDocNumber()));
+
         });
         WebEngine webEngine = webview.getEngine();
         webEngine.loadContent("<iframe width=\"350\" height=\"240\" src=\"https://www.youtube.com/embed/XyNlqQId-nk\" " +
