@@ -14,6 +14,16 @@ import java.util.ResourceBundle;
 
 public class FxController implements Initializable {
     @FXML
+    private ListView<Payment> paymentlist;
+    @FXML
+    private TextField amountid;
+    @FXML
+    private ChoiceBox<PaymentMethod> methodid;
+    @FXML
+    private ChoiceBox<PaymentStatus> statusid;
+    @FXML
+    private TextField systemid;
+    @FXML
     private TextField documentid;
     @FXML
     private TextField addressid;
@@ -37,6 +47,7 @@ public class FxController implements Initializable {
     private WebView webview;
     private RoomDAO roomDB;
     private GuestDAO guestDB;
+    private PaymentDAO paymentDB;
 
 
     @Override
@@ -44,9 +55,13 @@ public class FxController implements Initializable {
         try {
             roomDB = new RoomDAO();
             guestDB = new GuestDAO();
+            paymentDB = new PaymentDAO();
             typeList.setItems(roomDB.getRoomTypes());
             roomList.setItems(roomDB.getAllRooms());
             guestlist.setItems(guestDB.getAllGuests());
+            paymentlist.setItems(paymentDB.getAllPayments());
+            methodid.setItems(paymentDB.getMethod());
+            statusid.setItems(paymentDB.getStatus());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -61,8 +76,11 @@ public class FxController implements Initializable {
             emailid.setText(newValue.getEmail());
             addressid.setText(newValue.getAddress());
             documentid.setText(Integer.toString(newValue.getDocNumber()));
-
         });
+        paymentlist.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            amountid.setText(Integer.toString(newValue.getAmount()));
+            systemid.setText(newValue.getSystemId());
+        }));
         WebEngine webEngine = webview.getEngine();
         webEngine.loadContent("<iframe width=\"350\" height=\"240\" src=\"https://www.youtube.com/embed/XyNlqQId-nk\" " +
                 "frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\"></iframe>");
