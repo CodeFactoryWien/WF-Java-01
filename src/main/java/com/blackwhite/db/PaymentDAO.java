@@ -96,28 +96,33 @@ public class PaymentDAO {
     public Payment addPayment (int method, int status, int amount, String systemId) {
         try {
             String sql3="INSERT INTO payment (payment_method_id, payment_status_id, amount, payment_system_id) VALUES (?,?,?,?);";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql3);
+            PreparedStatement pstm = db.getConnection().prepareStatement(sql3, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, method);
             pstm.setInt(2, status);
             pstm.setInt(3, amount);
             pstm.setString(4, systemId);
             pstm.executeUpdate();
-            Payment payment = new Payment();
-            payment.setPaymentMethod(method);
-            payment.setPaymentStatus(status);
-            payment.setAmount(amount);
-            payment.setSystemId(systemId);
-            for (PaymentMethod pMethods: methods) {
-                if(pMethods.getId()==method){
-                    payment.setMethodName(pMethods.getName());
+            ResultSet result = pstm.getGeneratedKeys();
+            if(result.next()){
+                Payment payment = new Payment();
+                payment.setId(result.getInt(1));
+                payment.setPaymentMethod(method);
+                payment.setPaymentStatus(status);
+                payment.setAmount(amount);
+                payment.setSystemId(systemId);
+                for (PaymentMethod pMethods: methods) {
+                    if(pMethods.getId()==method){
+                        payment.setMethodName(pMethods.getName());
+                    }
                 }
-            }
-            for (PaymentStatus pStatus: statuse) {
-                if(pStatus.getId()==status){
-                    payment.setStatusName(pStatus.getName());
+                for (PaymentStatus pStatus: statuse) {
+                    if(pStatus.getId()==status){
+                        payment.setStatusName(pStatus.getName());
+                    }
                 }
+                return payment;
             }
-            return payment;
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

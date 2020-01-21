@@ -120,7 +120,6 @@ public class FxController implements Initializable {
     @FXML
     private void updatePayment(){
         Payment selectedPayment = paymentlist.getSelectionModel().getSelectedItem();
-        int systemId = Integer.parseInt(systemid.getText());
         int amount = Integer.parseInt(amountid.getText());
         int methodId = methodid.getValue().getId();
         int statusId = statusid.getValue().getId();
@@ -173,6 +172,7 @@ public class FxController implements Initializable {
     public void closeConnection() throws SQLException {
         roomDB.closeConnection();
         guestDB.closeConnection();
+        paymentDB.closeConnection();
     }
 
 }
