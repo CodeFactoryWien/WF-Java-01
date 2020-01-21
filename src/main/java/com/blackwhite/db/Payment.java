@@ -1,6 +1,7 @@
 package com.blackwhite.db;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 
 public class Payment {
     private int id;
@@ -8,25 +9,10 @@ public class Payment {
     private int paymentStatus;
     private int amount;
     private String systemId;
-    private String methodName;
-    private String statusName;
+    private PaymentStatus payStatus;
+    private PaymentMethod payMethod;
 
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
-
+    @Id
     @Column(name="id")
     public int getId() {
         return id;
@@ -72,8 +58,24 @@ public class Payment {
         this.systemId = systemId;
     }
 
+    public PaymentStatus getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(PaymentStatus payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public PaymentMethod getPayMethod() {
+        return payMethod;
+    }
+
+    public void setPayMethod(PaymentMethod payMethod) {
+        this.payMethod = payMethod;
+    }
+
     @Override
     public String toString() {
-        return statusName + ": " + systemId;
+        return payStatus.getName() + ": " + systemId;
     }
 }

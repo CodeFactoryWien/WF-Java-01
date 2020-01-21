@@ -3,7 +3,6 @@ package com.blackwhite.db;
 import com.blackwhite.ctrl.DbController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 public class PaymentDAO {
     private DbController db;
     private Statement statement;
-    ArrayList<PaymentMethod> methods = new ArrayList<>();
-    ArrayList<PaymentStatus> statuse = new ArrayList<>();
+    private ArrayList<PaymentMethod> methods = new ArrayList<>();
+    private ArrayList<PaymentStatus> statuse = new ArrayList<>();
 
     public PaymentDAO () throws SQLException, ClassNotFoundException {
         init();
@@ -44,25 +43,17 @@ public class PaymentDAO {
             payment.setPaymentStatus(data.getInt("payment_status_id"));
             payment.setSystemId(data.getString("payment_system_id"));
             payment.setAmount(data.getInt("amount"));
+            for (PaymentMethod paymentM: methods) {
+                if(paymentM.getId()==payment.getPaymentMethod()) {
+                    payment.setPayMethod(paymentM);
+                }
+            }
+            for (PaymentStatus paymentS: statuse) {
+                if(paymentS.getId()==payment.getPaymentStatus()) {
+                    payment.setPayStatus(paymentS);
+                }
+            }
             payments.add(payment);
-        }
-        for (Payment payment: payments) {
-            String sql2="SELECT `name` from payment_method JOIN payment WHERE payment_method.id= ? ";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql2);
-            pstm.setInt(1, payment.getPaymentMethod());
-            ResultSet typeData = pstm.executeQuery();
-            while (typeData.next()){
-                payment.setMethodName(typeData.getString("name"));
-            }
-        }
-        for (Payment payment: payments) {
-            String sql2="SELECT `name` from payment_status JOIN payment WHERE payment_status.id= ? ";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql2);
-            pstm.setInt(1, payment.getPaymentStatus());
-            ResultSet typeData = pstm.executeQuery();
-            while (typeData.next()){
-                payment.setStatusName(typeData.getString("name"));
-            }
         }
         return FXCollections.observableArrayList(payments);
     }
@@ -110,14 +101,14 @@ public class PaymentDAO {
                 payment.setPaymentStatus(status);
                 payment.setAmount(amount);
                 payment.setSystemId(systemId);
-                for (PaymentMethod pMethods: methods) {
-                    if(pMethods.getId()==method){
-                        payment.setMethodName(pMethods.getName());
+                for (PaymentMethod paymentM: methods) {
+                    if(paymentM.getId()==payment.getPaymentMethod()) {
+                        payment.setPayMethod(paymentM);
                     }
                 }
-                for (PaymentStatus pStatus: statuse) {
-                    if(pStatus.getId()==status){
-                        payment.setStatusName(pStatus.getName());
+                for (PaymentStatus paymentS: statuse) {
+                    if(paymentS.getId()==payment.getPaymentStatus()) {
+                        payment.setPayStatus(paymentS);
                     }
                 }
                 return payment;

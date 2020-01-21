@@ -59,9 +59,9 @@ public class FxController implements Initializable {
             typeList.setItems(roomDB.getRoomTypes());
             roomList.setItems(roomDB.getAllRooms());
             guestlist.setItems(guestDB.getAllGuests());
-            paymentlist.setItems(paymentDB.getAllPayments());
             methodid.setItems(paymentDB.getMethod());
             statusid.setItems(paymentDB.getStatus());
+            paymentlist.setItems(paymentDB.getAllPayments());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -81,6 +81,8 @@ public class FxController implements Initializable {
         paymentlist.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
             amountid.setText(Integer.toString(newValue.getAmount()));
             systemid.setText(newValue.getSystemId());
+            methodid.valueProperty().setValue(newValue.getPayMethod());
+            statusid.valueProperty().setValue(newValue.getPayStatus());
         }));
         WebEngine webEngine = webview.getEngine();
         webEngine.loadContent("<iframe width=\"350\" height=\"240\" src=\"https://www.youtube.com/embed/XyNlqQId-nk\" " +
@@ -127,7 +129,9 @@ public class FxController implements Initializable {
             selectedPayment.setPaymentMethod(methodId);
             selectedPayment.setPaymentStatus(statusId);
             selectedPayment.setAmount(amount);
-            roomList.refresh();
+            selectedPayment.setPayStatus(statusid.getValue());
+            selectedPayment.setPayMethod(methodid.getValue());
+            paymentlist.refresh();
         }
     }
     @FXML
