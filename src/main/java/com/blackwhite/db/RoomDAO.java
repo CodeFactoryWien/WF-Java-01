@@ -41,16 +41,13 @@ public class RoomDAO {
             room.setTypeId(data.getInt("type_id"));
             room.setSize(data.getInt("size"));
             room.setAvailable(data.getBoolean("isAvailable"));
-            rooms.add(room);
-        }
-        for (Room room: rooms) {
-            String sql2="SELECT `description` from TYPE JOIN ROOM WHERE type.id= ? ";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql2);
-            pstm.setInt(1, room.getTypeId());
-            ResultSet typeData = pstm.executeQuery();
-            while (typeData.next()){
-                room.setTypeDescription(typeData.getString("description"));
+            for (RoomType roomType: types) {
+                if(roomType.getTypeID()==room.getTypeId()) {
+                    room.setType(roomType);
+                    System.out.println(room.getType().toString());
+                }
             }
+            rooms.add(room);
         }
         return FXCollections.observableArrayList(rooms);
     }
@@ -87,7 +84,7 @@ public class RoomDAO {
             room.setAvailable(true);
             for (RoomType roomType: types) {
                 if(roomType.getTypeID()==type){
-                    room.setTypeDescription(roomType.getDescription());
+                    room.setType(roomType);
                 }
             }
             return room;

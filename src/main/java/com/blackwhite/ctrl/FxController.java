@@ -68,6 +68,7 @@ public class FxController implements Initializable {
         roomList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             roomNumberContent.setText(Integer.toString(newValue.getRoomNumber()));
             sizeContent.setText(Integer.toString(newValue.getSize()));
+            typeList.valueProperty().setValue(newValue.getType());
         });
 
         guestlist.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -107,7 +108,7 @@ public class FxController implements Initializable {
         if(roomDB.updateRoom(selectedRoom.getRoomNumber(), newRoomNumber, roomType, roomSize)){
             selectedRoom.setRoomNumber(newRoomNumber);
             selectedRoom.setTypeId(roomType);
-            selectedRoom.setTypeDescription(typeList.getValue().getDescription());
+            selectedRoom.setType(typeList.getValue());
             selectedRoom.setSize(roomSize);
             roomList.refresh();
         }
