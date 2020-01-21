@@ -131,8 +131,10 @@ public class PaymentDAO {
                     pstm.setInt(1, payment.getPaymentStatus());
                     pstm.executeUpdate();
                     System.out.println("delete");
+                    return true;
+                } else {
+                    return false;
                 }
-                return true;
             } catch (SQLException e) {
                 e.printStackTrace();
                 return false;
