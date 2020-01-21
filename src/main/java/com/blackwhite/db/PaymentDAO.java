@@ -127,8 +127,8 @@ public class PaymentDAO {
         try {
                 String sql4 = "DELETE FROM payment WHERE payment_status_id=?;";
                 PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
-                if (payment.getStatusName().equals("open")){
-                    pstm.setString(1, payment.getStatusName());
+                if (payment.getPaymentStatus()==1){
+                    pstm.setInt(1, payment.getPaymentStatus());
                     pstm.executeUpdate();
                     System.out.println("delete");
                 }
