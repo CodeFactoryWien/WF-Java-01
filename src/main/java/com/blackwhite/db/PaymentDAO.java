@@ -123,14 +123,13 @@ public class PaymentDAO {
         }
     }
 
-    public boolean deletePayment (Payment payment) {
+   /* public boolean deletePayment (Payment payment) {
         try {
-                String sql4 = "DELETE FROM payment WHERE payment_status_id=?;";
-                PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
                 if (payment.getPaymentStatus()==1){
+                    String sql4 = "DELETE FROM payment WHERE payment_status_id=?;";
+                    PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
                     pstm.setInt(1, payment.getPaymentStatus());
                     pstm.executeUpdate();
-                    System.out.println("delete");
                     return true;
                 } else {
                     return false;
@@ -139,7 +138,7 @@ public class PaymentDAO {
                 e.printStackTrace();
                 return false;
             }
-    }
+    }*/
 
     /*public boolean updateRoom (int oldRoomNumber, int newRoomNumber, int type, int size) {
         try {
