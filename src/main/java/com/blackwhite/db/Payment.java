@@ -3,6 +3,7 @@ package com.blackwhite.db;
 import javax.persistence.Column;
 
 public class Payment {
+    private int id;
     private int paymentMethod;
     private int paymentStatus;
     private int amount;
@@ -24,6 +25,15 @@ public class Payment {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    @Column(name="id")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Column(name="payment_method_id")

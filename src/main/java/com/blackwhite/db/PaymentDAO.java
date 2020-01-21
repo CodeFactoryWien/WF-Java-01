@@ -39,6 +39,7 @@ public class PaymentDAO {
 
         while (data.next()) {
             Payment payment = new Payment();
+            payment.setId(data.getInt("id"));
             payment.setPaymentMethod(data.getInt("payment_method_id"));
             payment.setPaymentStatus(data.getInt("payment_status_id"));
             payment.setSystemId(data.getString("payment_system_id"));
@@ -123,12 +124,12 @@ public class PaymentDAO {
         }
     }
 
-   /* public boolean deletePayment (Payment payment) {
+    public boolean deletePayment (Payment payment) {
         try {
                 if (payment.getPaymentStatus()==1){
-                    String sql4 = "DELETE FROM payment WHERE payment_status_id=?;";
+                    String sql4 = "DELETE FROM payment WHERE id=?;";
                     PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
-                    pstm.setInt(1, payment.getPaymentStatus());
+                    pstm.setInt(1, payment.getId());
                     pstm.executeUpdate();
                     return true;
                 } else {
@@ -138,21 +139,21 @@ public class PaymentDAO {
                 e.printStackTrace();
                 return false;
             }
-    }*/
+    }
 
-    /*public boolean updateRoom (int oldRoomNumber, int newRoomNumber, int type, int size) {
+    public boolean updatePayment (int methodid, int statusid, int amount, String systemid) {
         try {
-            String sql5="UPDATE room SET room_number=?, type_id=?, size=? WHERE room_number=?;";
+            String sql5="UPDATE payment SET payment_method_id=?, payment_status_id=?, amount=? WHERE payment_system_id=?;";
             PreparedStatement pstm = db.getConnection().prepareStatement(sql5);
-            pstm.setInt(1, newRoomNumber);
-            pstm.setInt(2, type);
-            pstm.setInt(3, size);
-            pstm.setInt(4, oldRoomNumber);
+            pstm.setInt(1, methodid);
+            pstm.setInt(2, statusid);
+            pstm.setInt(3, amount);
+            pstm.setString(4, systemid);
             pstm.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-    }*/
+    }
 }

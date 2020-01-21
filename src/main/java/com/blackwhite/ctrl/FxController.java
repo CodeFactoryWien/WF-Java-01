@@ -119,14 +119,24 @@ public class FxController implements Initializable {
     }
     @FXML
     private void updatePayment(){
-        // paymentlist.getItems().add(paymentDB.addPayment(methodid.getValue().getId(), statusid.getValue().getId(), Integer.parseInt(amountid.getText()), systemid.getText()));
+        Payment selectedPayment = paymentlist.getSelectionModel().getSelectedItem();
+        int systemId = Integer.parseInt(systemid.getText());
+        int amount = Integer.parseInt(amountid.getText());
+        int methodId = methodid.getValue().getId();
+        int statusId = statusid.getValue().getId();
+        if(paymentDB.updatePayment(methodId, statusId, amount, selectedPayment.getSystemId())){
+            selectedPayment.setPaymentMethod(methodId);
+            selectedPayment.setPaymentStatus(statusId);
+            selectedPayment.setAmount(amount);
+            roomList.refresh();
+        }
     }
-/*    @FXML
+    @FXML
     private void deletePayment(){
         if(paymentDB.deletePayment(paymentlist.getSelectionModel().getSelectedItem())){
             paymentlist.getItems().remove(paymentlist.getSelectionModel().getSelectedItem());
         }
-    }*/
+    }
 
     @FXML
     private void addGuest(){
