@@ -14,6 +14,14 @@ import java.util.ResourceBundle;
 
 public class FxController implements Initializable {
     @FXML
+    private ChoiceBox<Payment> paymentAvailable;
+    @FXML
+    private ChoiceBox<Guest> mainGuest;
+    @FXML
+    private TextField bookedRoom;
+    @FXML
+    private ListView<Room> availableRoomsList;
+    @FXML
     private ListView<Payment> paymentlist;
     @FXML
     private TextField amountid;
@@ -48,7 +56,7 @@ public class FxController implements Initializable {
     private RoomDAO roomDB;
     private GuestDAO guestDB;
     private PaymentDAO paymentDB;
-
+    private CheckinDAO checkinDB;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,12 +64,16 @@ public class FxController implements Initializable {
             roomDB = new RoomDAO();
             guestDB = new GuestDAO();
             paymentDB = new PaymentDAO();
+            checkinDB = new CheckinDAO();
             typeList.setItems(roomDB.getRoomTypes());
             roomList.setItems(roomDB.getAllRooms());
             guestlist.setItems(guestDB.getAllGuests());
             methodid.setItems(paymentDB.getMethod());
             statusid.setItems(paymentDB.getStatus());
             paymentlist.setItems(paymentDB.getAllPayments());
+            availableRoomsList.setItems(checkinDB.getAvailableRooms());
+            mainGuest.setItems(checkinDB.getAvailableGuests());
+            paymentAvailable.setItems(checkinDB.getPaymentAvailable());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,6 +96,9 @@ public class FxController implements Initializable {
             methodid.valueProperty().setValue(newValue.getPayMethod());
             statusid.valueProperty().setValue(newValue.getPayStatus());
         }));
+        availableRoomsList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) ->{
+            bookedRoom.setText(Integer.toString(newValue.getRoomNumber()));
+        } );
         WebEngine webEngine = webview.getEngine();
         webEngine.loadContent("<iframe width=\"350\" height=\"240\" src=\"https://www.youtube.com/embed/XyNlqQId-nk\" " +
                 "frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\"></iframe>");
@@ -92,12 +107,14 @@ public class FxController implements Initializable {
     @FXML
     private void createRoom(){
         roomList.getItems().add(roomDB.addRoom(Integer.parseInt(roomNumberContent.getText()), typeList.getValue().getTypeID(), Integer.parseInt(sizeContent.getText())));
+        availableRoomsList.refresh();
     }
 
     @FXML
     private void deleteRoom(){
         if(roomDB.deleteRoom(roomList.getSelectionModel().getSelectedItem())){
             roomList.getItems().remove(roomList.getSelectionModel().getSelectedItem());
+            availableRoomsList.refresh();
         }
     }
 
@@ -113,11 +130,18 @@ public class FxController implements Initializable {
             selectedRoom.setType(typeList.getValue());
             selectedRoom.setSize(roomSize);
             roomList.refresh();
+            availableRoomsList.refresh();
         }
     }
     @FXML
     private void createPayment(){
         paymentlist.getItems().add(paymentDB.addPayment(methodid.getValue().getId(), statusid.getValue().getId(), Integer.parseInt(amountid.getText()), systemid.getText()));
+        try {
+            paymentAvailable.getItems().removeAll();
+            paymentAvailable.setItems(checkinDB.getPaymentAvailable());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void updatePayment(){
@@ -132,24 +156,48 @@ public class FxController implements Initializable {
             selectedPayment.setPayStatus(statusid.getValue());
             selectedPayment.setPayMethod(methodid.getValue());
             paymentlist.refresh();
+            try {
+                paymentAvailable.getItems().removeAll();
+                paymentAvailable.setItems(checkinDB.getPaymentAvailable());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     @FXML
     private void deletePayment(){
         if(paymentDB.deletePayment(paymentlist.getSelectionModel().getSelectedItem())){
             paymentlist.getItems().remove(paymentlist.getSelectionModel().getSelectedItem());
+            try {
+                paymentAvailable.getItems().removeAll();
+                paymentAvailable.setItems(checkinDB.getPaymentAvailable());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void addGuest(){
         guestlist.getItems().add(guestDB.addGuest(firstnameid.getText(), lastnameid.getText(), emailid.getText(), addressid.getText(), Integer.parseInt(documentid.getText())));
+        try {
+            mainGuest.getItems().removeAll();
+            mainGuest.setItems(checkinDB.getAvailableGuests());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void deleteGuest(){
         if(guestDB.deleteGuest(guestlist.getSelectionModel().getSelectedItem())){
             guestlist.getItems().remove(guestlist.getSelectionModel().getSelectedItem());
+            try {
+                mainGuest.getItems().removeAll();
+                mainGuest.setItems(checkinDB.getAvailableGuests());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -168,6 +216,12 @@ public class FxController implements Initializable {
             selectedGuest.setAddress(address);
             selectedGuest.setDocNumber(docNumber);
             guestlist.refresh();
+            try {
+                mainGuest.getItems().removeAll();
+                mainGuest.setItems(checkinDB.getAvailableGuests());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

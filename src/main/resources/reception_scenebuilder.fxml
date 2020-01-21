@@ -150,33 +150,9 @@
             <Label text="Room:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <Label text="Payment System Id:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
             <Label text="Main-Guest:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1"/>
-                  <String fx:value="Item 2"/>
-                  <String fx:value="Item 3"/>
-                </FXCollections>
-              </items>
-            </ChoiceBox>
-            <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1"/>
-                  <String fx:value="Item 2"/>
-                  <String fx:value="Item 3"/>
-                </FXCollections>
-              </items>
-            </ChoiceBox>
-            <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1"/>
-                  <String fx:value="Item 2"/>
-                  <String fx:value="Item 3"/>
-                </FXCollections>
-              </items>
-            </ChoiceBox>
+            <TextField prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="bookedRoom" />
+            <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="mainGuest"/>
+            <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="paymentAvailable"/>
           </GridPane>
           <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Check - in"/>
           <HBox prefHeight="144.0" prefWidth="391.0">
@@ -186,7 +162,7 @@
             </ImageView>
           </HBox>
         </VBox>
-        <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="199.99990000000253"/>
+        <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="199.99990000000253" fx:id="availableRoomsList"/>
       </AnchorPane>
     </Tab>
     <Tab text="current Occupation">

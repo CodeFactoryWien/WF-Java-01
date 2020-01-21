@@ -76,6 +76,9 @@ public class Payment {
 
     @Override
     public String toString() {
-        return payStatus.getName() + ": " + systemId;
+        if(payStatus != null){
+            return payStatus.getName() + ": " + systemId;
+        }
+        return systemId;
     }
 }
