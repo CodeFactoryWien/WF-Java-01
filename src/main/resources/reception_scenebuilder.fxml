@@ -48,7 +48,7 @@
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.999908447265625" text="Type:"
                    GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <Label prefHeight="21.999908447265625" text="Size:" GridPane.columnIndex="0"
-                   GridPane.rowIndex=2"/>
+                   GridPane.rowIndex="2"/>
             <ChoiceBox prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="typeList" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
                   GridPane.rowIndex="2">
