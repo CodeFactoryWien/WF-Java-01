@@ -44,7 +44,6 @@ public class RoomDAO {
             for (RoomType roomType: types) {
                 if(roomType.getTypeID()==room.getTypeId()) {
                     room.setType(roomType);
-                    System.out.println(room.getType().toString());
                 }
             }
             rooms.add(room);
