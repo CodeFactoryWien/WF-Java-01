@@ -9,7 +9,7 @@ public class Room {
     private int typeId;
     private int size;
     private boolean isAvailable;
-    private String typeDescription;
+    private RoomType type;
 
     @Id
     @Column(name = "ROOM_NUMBER")
@@ -48,17 +48,17 @@ public class Room {
         isAvailable = available;
     }
 
-    public String getTypeDescription() {
-        return typeDescription;
+    public RoomType getType (){
+        return type;
     }
 
-    public void setTypeDescription(String typeDescription) {
-        this.typeDescription = typeDescription;
+    public void setType (RoomType type) {
+        this.type = type;
     }
 
     // used to display object in a ListView
     @Override
     public String toString() {
-        return typeDescription +" ("+size+"m²)";
+        return type.getDescription() +" ("+size+"m²)";
     }
 }
