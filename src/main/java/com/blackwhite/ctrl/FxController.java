@@ -112,6 +112,20 @@ public class FxController implements Initializable {
             roomList.refresh();
         }
     }
+    @FXML
+    private void createPayment(){
+        paymentlist.getItems().add(paymentDB.addPayment(methodid.getValue().getId(), statusid.getValue().getId(), Integer.parseInt(amountid.getText()), systemid.getText()));
+    }
+    @FXML
+    private void updatePayment(){
+        // paymentlist.getItems().add(paymentDB.addPayment(methodid.getValue().getId(), statusid.getValue().getId(), Integer.parseInt(amountid.getText()), systemid.getText()));
+    }
+    @FXML
+    private void deletePayment(){
+        if(paymentDB.deletePayment(paymentlist.getSelectionModel().getSelectedItem())){
+            paymentlist.getItems().remove(paymentlist.getSelectionModel().getSelectedItem());
+        }
+    }
 
     public void closeConnection() throws SQLException {
         roomDB.closeConnection();

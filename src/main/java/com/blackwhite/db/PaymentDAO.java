@@ -92,46 +92,54 @@ public class PaymentDAO {
         return FXCollections.observableList(statuse);
     }
 
-    /*public Room addPayment (int roomNumber, int type, int size) {
+    public Payment addPayment (int method, int status, int amount, String systemId) {
         try {
-            String sql3="INSERT INTO room (room_number, type_id, size, isAvailable) VALUES (?,?,?,?);";
+            String sql3="INSERT INTO payment (payment_method_id, payment_status_id, amount, payment_system_id) VALUES (?,?,?,?);";
             PreparedStatement pstm = db.getConnection().prepareStatement(sql3);
-            pstm.setInt(1, roomNumber);
-            pstm.setInt(2, type);
-            pstm.setInt(3, size);
-            pstm.setBoolean(4, true);
+            pstm.setInt(1, method);
+            pstm.setInt(2, status);
+            pstm.setInt(3, amount);
+            pstm.setString(4, systemId);
             pstm.executeUpdate();
-            Room room = new Room();
-            room.setRoomNumber(roomNumber);
-            room.setTypeId(type);
-            room.setSize(size);
-            room.setAvailable(true);
-            for (RoomType roomType: types) {
-                if(roomType.getTypeID()==type){
-                    room.setTypeDescription(roomType.getDescription());
+            Payment payment = new Payment();
+            payment.setPaymentMethod(method);
+            payment.setPaymentStatus(status);
+            payment.setAmount(amount);
+            payment.setSystemId(systemId);
+            for (PaymentMethod pMethods: methods) {
+                if(pMethods.getId()==method){
+                    payment.setMethodName(pMethods.getName());
                 }
             }
-            return room;
+            for (PaymentStatus pStatus: statuse) {
+                if(pStatus.getId()==status){
+                    payment.setStatusName(pStatus.getName());
+                }
+            }
+            return payment;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public boolean deleteRoom (Room room) {
+    public boolean deletePayment (Payment payment) {
         try {
-            String sql4="DELETE FROM room WHERE room_number=?;";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
-            pstm.setInt(1, room.getRoomNumber());
-            pstm.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+                String sql4 = "DELETE FROM payment WHERE payment_status_id=?;";
+                PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
+                if (payment.getStatusName().equals("open")){
+                    pstm.setString(1, payment.getStatusName());
+                    pstm.executeUpdate();
+                    System.out.println("delete");
+                }
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
     }
 
-    public boolean updateRoom (int oldRoomNumber, int newRoomNumber, int type, int size) {
+    /*public boolean updateRoom (int oldRoomNumber, int newRoomNumber, int type, int size) {
         try {
             String sql5="UPDATE room SET room_number=?, type_id=?, size=? WHERE room_number=?;";
             PreparedStatement pstm = db.getConnection().prepareStatement(sql5);

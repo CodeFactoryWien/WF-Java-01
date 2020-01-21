@@ -321,9 +321,9 @@
             </HBox>
           </GridPane>
           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <Button mnemonicParsing="false" prefWidth="59.0" text="Add"/>
-            <Button mnemonicParsing="false" text="Update" HBox.margin="$x1"/>
-            <Button mnemonicParsing="false" prefWidth="59.0" text="Delete"/>
+            <Button mnemonicParsing="false" prefWidth="59.0" text="Add" onAction="#createPayment"/>
+            <Button mnemonicParsing="false" text="Update" HBox.margin="$x1" onAction="#updatePayment"/>
+            <Button mnemonicParsing="false" prefWidth="59.0" text="Delete" onAction="#deletePayment"/>
           </HBox>
           <HBox prefHeight="100.0" prefWidth="200.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"
