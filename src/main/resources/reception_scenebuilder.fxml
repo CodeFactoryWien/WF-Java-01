@@ -11,7 +11,7 @@
 
 <AnchorPane fx:controller="com.blackwhite.ctrl.FxController" blendMode="SRC_OVER" prefHeight="600.0" prefWidth="600.0"
             xmlns:fx="http://javafx.com/fxml">
-  <TabPane prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE">
+  <TabPane prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane">
     <Tab text="Home">
       <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
         <HBox alignment="CENTER" prefHeight="369.0" prefWidth="600.0"/>
@@ -154,7 +154,7 @@
             <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="mainGuest"/>
             <ChoiceBox prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="paymentAvailable"/>
           </GridPane>
-          <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Check - in"/>
+          <Button alignment="TOP_RIGHT" mnemonicParsing="false" text="Check-in" onAction="#checkGuestsIn"/>
           <HBox prefHeight="144.0" prefWidth="391.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"
                        preserveRatio="true">
@@ -165,7 +165,7 @@
         <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="199.99990000000253" fx:id="availableRoomsList"/>
       </AnchorPane>
     </Tab>
-    <Tab text="current Occupation">
+    <Tab text="current Occupation" fx:id="checkinGuestsTab">
       <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
         <ListView layoutX="400.0" layoutY="-1.0" prefHeight="369.0" prefWidth="200.0"/>
         <VBox prefHeight="225.0" prefWidth="400.0">
