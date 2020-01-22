@@ -20,11 +20,11 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(Main.class.getResourceAsStream("/reception_scenebuilder.fxml"));
         controller = loader.getController();
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setMaxWidth(600);
-        primaryStage.setMaxHeight(400);
-        primaryStage.setMinHeight(400);
-        primaryStage.setMinWidth(600);
+        Scene scene = new Scene(root, 645, 425);
+        primaryStage.setMaxWidth(650);
+        primaryStage.setMaxHeight(560);
+        primaryStage.setMinHeight(425);
+        primaryStage.setMinWidth(645);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
         primaryStage.setTitle("Hotel Black & White");
         primaryStage.setScene(scene);

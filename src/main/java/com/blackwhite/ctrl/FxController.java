@@ -12,6 +12,18 @@ import java.util.ResourceBundle;
 
 public class FxController implements Initializable {
     @FXML
+    private ListView<GuestBooking> checkedInList;
+    @FXML
+    private TextField checkedRoom;
+    @FXML
+    private TextField checkedDate;
+    @FXML
+    private TextField checkedGuest;
+    @FXML
+    private ChoiceBox<Guest> additionalGuests;
+    @FXML
+    private ListView<Guest> addGuestsList;
+    @FXML
     private TabPane tabPane;
     @FXML
     private Tab checkinGuestsTab;
@@ -238,6 +250,9 @@ public class FxController implements Initializable {
             paymentAvailable.getSelectionModel().clearSelection();
             tabPane.getSelectionModel().select(checkinGuestsTab);
         }
+    }
+
+    public void addGuests() {
     }
 
     public void closeConnection() throws SQLException {

@@ -27,7 +27,6 @@ public class GuestDAO {
 
     public void closeConnection() throws SQLException {
         statement.close();
-        db.getConnection().close();
     }
 
     public ObservableList<Guest> getAllGuests() throws SQLException {

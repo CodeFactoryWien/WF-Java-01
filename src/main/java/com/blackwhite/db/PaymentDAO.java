@@ -28,7 +28,6 @@ public class PaymentDAO {
 
     public void closeConnection() throws SQLException {
         statement.close();
-        db.getConnection().close();
     }
 
     public ObservableList<Payment> getAllPayments() throws SQLException {

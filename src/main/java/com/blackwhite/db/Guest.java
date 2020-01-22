@@ -59,8 +59,6 @@ public class Guest {
 
     @Override
     public String toString() {
-        return
-                 firstName + ' ' +
-                lastName;
+        return firstName + ' ' + lastName;
     }
 }
