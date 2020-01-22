@@ -116,6 +116,7 @@ public class FxController implements Initializable {
             systemid.setText(newValue.getSystemId());
             methodid.valueProperty().setValue(newValue.getPayMethod());
             statusid.valueProperty().setValue(newValue.getPayStatus());
+            systemid.setDisable(true);
         }));
         availableRoomsList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) ->
                 bookedRoom.setText(Integer.toString(newValue.getRoomNumber())));
@@ -198,6 +199,7 @@ public class FxController implements Initializable {
                 e.printStackTrace();
             }
         }
+        systemid.setDisable(false);
     }
 
     @FXML

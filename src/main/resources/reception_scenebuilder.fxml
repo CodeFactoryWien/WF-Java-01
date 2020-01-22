@@ -249,7 +249,7 @@
                 <HBox.margin>
                   <Insets right="5.0" fx:id="x6"/>
                 </HBox.margin>
-                <TextField prefHeight="17.0" prefWidth="30.0" HBox.margin="$x6"/>
+                <TextField prefHeight="17.0" prefWidth="30.0" HBox.margin="$x6" text="0"/>
                 <Label text="Breakfast"/>
               </HBox>
             </VBox>
