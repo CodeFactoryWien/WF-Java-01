@@ -29,6 +29,7 @@ Trello - what we did in week one / week two.
 -golden rules. -> we use underscore in the database, camelcase in intelliJ -> not working in our free time!!!
 -what blabla we do blabla when bla we have bla time.
 -finishing the program.
+-folder structure
 
 /*
 -open the app
