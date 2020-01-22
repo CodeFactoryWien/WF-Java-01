@@ -1,6 +1,7 @@
 package com.blackwhite.ctrl;
 
 import com.blackwhite.db.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -233,4 +234,6 @@ public class FxController implements Initializable {
         paymentDB.closeConnection();
     }
 
+    public void checkGuestsIn(ActionEvent actionEvent) {
+    }
 }
