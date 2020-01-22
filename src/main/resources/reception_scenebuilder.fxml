@@ -193,7 +193,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <padding><Insets top="5"/></padding>
               <ChoiceBox prefWidth="142.0" fx:id="additionalGuests"/>
-              <Button mnemonicParsing="false" text="Add" onAction="#addGuests">
+              <Button mnemonicParsing="false" text="Add" onAction="#addFurtherGuests">
                 <HBox.margin>
                   <Insets left="5.0" fx:id="x4"/>
                 </HBox.margin>
@@ -254,13 +254,13 @@
               </HBox>
             </VBox>
             <DatePicker fx:id="datepicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="checkoutRoom"/>
           </GridPane>
           <HBox prefHeight="20.0" prefWidth="390.0" alignment="TOP_RIGHT">
             <padding>
               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
-            <Button mnemonicParsing="false" text="Check - out"/>
+            <Button mnemonicParsing="false" text="Check out" onAction="#checkGuestsOut"/>
           </HBox>
           <HBox prefHeight="100.0" prefWidth="200.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"
@@ -269,7 +269,7 @@
             </ImageView>
           </HBox>
         </VBox>
-        <ListView layoutX="400.0" layoutY="-1.0" prefWidth="230.0"/>
+        <ListView layoutX="400.0" layoutY="-1.0" prefWidth="230.0" fx:id="checkoutList"/>
       </AnchorPane>
     </Tab>
     <Tab text="Payment">

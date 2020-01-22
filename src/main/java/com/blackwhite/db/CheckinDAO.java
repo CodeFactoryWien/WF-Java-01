@@ -3,7 +3,6 @@ package com.blackwhite.db;
 import com.blackwhite.ctrl.DbController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,7 +10,10 @@ public class CheckinDAO {
     private DbController db;
     private Statement statement;
     private ArrayList<Room> rooms = new ArrayList<>();
+    private ArrayList<RoomType> types = new ArrayList<>();
     private ArrayList<Guest> guests = new ArrayList<>();
+    private ArrayList<GuestBooking> mainBookings = new ArrayList<>();
+    private ArrayList<Payment> payments = new ArrayList<>();
 
     public CheckinDAO() throws SQLException, ClassNotFoundException {
         init();
@@ -29,7 +31,6 @@ public class CheckinDAO {
     }
 
     public ObservableList<Room> getAvailableRooms() throws SQLException {
-        ArrayList<RoomType> types = new ArrayList<>();
         String sql1 = "SELECT * FROM type;";
         ResultSet data1 = statement.executeQuery(sql1);
 
@@ -45,17 +46,9 @@ public class CheckinDAO {
 
         String sql ="SELECT * from Room WHERE isAvailable = 1;";
         ResultSet data = statement.executeQuery(sql);
+        rooms.clear();
         while (data.next()) {
-            Room room = new Room();
-            room.setRoomNumber(data.getInt("room_number"));
-            room.setTypeId(data.getInt("type_id"));
-            room.setSize(data.getInt("size"));
-            room.setAvailable(data.getBoolean("isAvailable"));
-            for (RoomType roomType: types) {
-                if(roomType.getTypeID()==room.getTypeId()) {
-                    room.setType(roomType);
-                }
-            }
+            Room room = newRoom(data);
             rooms.add(room);
         }
         return FXCollections.observableArrayList(rooms);
@@ -66,7 +59,7 @@ public class CheckinDAO {
                 "ON guest_booking.guest_id=guest.id JOIN booking ON booking.id=guest_booking.booking_id " +
                 "WHERE booking.checkout_date IS NULL) ORDER BY g.last_name;";
         ResultSet data = statement.executeQuery(sql);
-
+        guests.clear();
         while (data.next()) {
             Guest guest = new Guest();
             guest.setFirstName(data.getString("first_name"));
@@ -81,8 +74,7 @@ public class CheckinDAO {
         String sql = "SELECT * from payment JOIN payment_status ON payment.payment_status_id = payment_status.id " +
                 "WHERE payment_status.name<>'payed' ORDER BY payment.id DESC";
         ResultSet data = statement.executeQuery(sql);
-        ArrayList<Payment> payments = new ArrayList<>();
-
+        payments.clear();
         while (data.next()) {
             Payment payment = new Payment();
             payment.setId(data.getInt("id"));
@@ -94,14 +86,13 @@ public class CheckinDAO {
 
     public boolean checkIn(int roomNumber, Guest mainGuest, Payment bookingPayment) {
         try {
-            String sql = "INSERT INTO booking (room_id, payment_id, number_guests, checkin_date)" +
-                    "VALUES (?, ?, ?, ?);";
+            String sql = "INSERT INTO booking (room_id, payment_id, checkin_date)" +
+                    "VALUES (?, ?, ?);";
             PreparedStatement pstm = db.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, roomNumber);
             pstm.setInt(2, bookingPayment.getId());
-            pstm.setInt(3, 1);
             long now = System.currentTimeMillis();
-            pstm.setDate(4, new Date(now));
+            pstm.setDate(3, new Date(now));
             pstm.executeUpdate();
             ResultSet result = pstm.getGeneratedKeys();
             if(result.next()) {
@@ -124,5 +115,86 @@ public class CheckinDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ObservableList<GuestBooking> getOccupiedRooms() throws SQLException {
+        String sql = "SELECT * FROM guest_booking JOIN booking ON booking_id=booking.id " +
+                "JOIN guest ON guest_booking.guest_id = guest.id JOIN room ON room_number=room_id " +
+                "WHERE iscontactperson=true AND checkout_date IS NULL;";
+        ResultSet data = statement.executeQuery(sql);
+        mainBookings.clear();
+        while (data.next()) {
+            GuestBooking mainBooking = new GuestBooking();
+            mainBooking.setBookingID(data.getInt("booking_id"));
+            mainBooking.setGuestID(data.getInt("guest_id"));
+            mainBooking.setContactPerson(true);
+            Guest guest = new Guest();
+            guest.setFirstName(data.getString("first_name"));
+            guest.setLastName(data.getString("last_name"));
+            mainBooking.setGuest(guest);
+            Booking booking = new Booking();
+            booking.setId(data.getInt("booking.id"));
+            booking.setRoom_id(data.getInt("room_id"));
+            booking.setPayment_id(data.getInt("payment_id"));
+            booking.setPrice(data.getInt("price"));
+            booking.setCheckin(data.getDate("checkin_date"));
+            mainBooking.setBooking(booking);
+            Room room = newRoom(data);
+            mainBooking.getBooking().setRoomBooked(room);
+            for (Payment payment: payments) {
+                if(payment.getId()==booking.getPayment_id()){
+                    booking.setPaymentBooked(payment);
+                }
+            }
+            mainBookings.add(mainBooking);
+        }
+        return FXCollections.observableArrayList(mainBookings);
+    }
+
+    public ObservableList<Guest> getRoomGuests(int bookingID) throws SQLException {
+        ArrayList<Guest> roomGuests = new ArrayList<>();
+        String sql = "SELECT * FROM guest_booking JOIN guest g on guest_booking.guest_id = g.id " +
+                "WHERE booking_id=?;";
+        PreparedStatement pstm = db.getConnection().prepareStatement(sql);
+        pstm.setInt(1, bookingID);
+        ResultSet data = pstm.executeQuery();
+        while (data.next()){
+            Guest guest = new Guest();
+            guest.setId(data.getInt("guest_id"));
+            guest.setFirstName(data.getString("first_name"));
+            guest.setLastName(data.getString("last_name"));
+            roomGuests.add(guest);
+        }
+        return FXCollections.observableArrayList(roomGuests);
+    }
+
+    public boolean addRoomGuest(GuestBooking selectedBooking, Guest newGuest) {
+        try {
+            String sql = "INSERT INTO guest_booking (booking_id, guest_id, iscontactperson)" +
+                    "VALUES (?,?,?);";
+            PreparedStatement pstm = db.getConnection().prepareStatement(sql);
+            pstm.setInt(1, selectedBooking.getBookingID());
+            pstm.setInt(2, newGuest.getId());
+            pstm.setBoolean(3, false);
+            pstm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private Room newRoom (ResultSet data) throws SQLException {
+        Room room = new Room();
+        room.setRoomNumber(data.getInt("room_number"));
+        room.setTypeId(data.getInt("type_id"));
+        room.setAvailable(data.getBoolean("isAvailable"));
+        room.setSize(data.getInt("size"));
+        for (RoomType type: types){
+            if(type.getTypeID() == room.getTypeId()){
+                room.setType(type);
+            }
+        }
+        return room;
     }
 }
