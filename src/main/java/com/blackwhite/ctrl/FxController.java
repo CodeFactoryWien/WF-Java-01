@@ -152,6 +152,9 @@ public class FxController implements Initializable {
                 }
             }
         }));
+        checkedRoom.setDisable(true);
+        checkedDate.setDisable(true);
+        checkedGuest.setDisable(true);
         WebEngine webEngine = webview.getEngine();
         webEngine.loadContent("<iframe width=\"350\" height=\"240\" src=\"https://www.youtube.com/embed/XyNlqQId-nk\" " +
                 "frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\"></iframe>");
@@ -162,8 +165,10 @@ public class FxController implements Initializable {
         try {
             Room room = roomDB.addRoom(Integer.parseInt(roomNumberContent.getText()),
                     typeList.getValue().getTypeID(), Integer.parseInt(sizeContent.getText()));
-            roomList.getItems().add(room);
-            availableRoomsList.getItems().add(room);
+            if (room!=null){
+                roomList.getItems().add(room);
+                availableRoomsList.getItems().add(room);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             showErrorAlert();
@@ -243,6 +248,7 @@ public class FxController implements Initializable {
     private void deletePayment(){
         if(paymentDB.deletePayment(paymentlist.getSelectionModel().getSelectedItem())){
             paymentlist.getItems().remove(paymentlist.getSelectionModel().getSelectedItem());
+            systemid.setDisable(false);
             try {
                 paymentAvailable.setItems(checkinDB.getPaymentAvailable());
             } catch (SQLException e) {
