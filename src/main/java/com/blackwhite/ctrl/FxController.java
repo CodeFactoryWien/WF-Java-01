@@ -142,8 +142,21 @@ public class FxController implements Initializable {
                 e.printStackTrace();
             }
         });
-        checkoutList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue)
-                -> checkoutRoom.setText(Integer.toString(newValue.getBooking().getRoom_id())));
+        checkoutButton.setDisable(true);
+        checkoutList.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            checkoutRoom.setText(Integer.toString(newValue.getBooking().getRoom_id()));
+            checkoutButton.setDisable(true);
+            datepicker.valueProperty().setValue(null);
+        }));
+        datepicker.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            if (datepicker.getValue()!=null){
+                if (checkoutRoom.getText().isEmpty()){
+                    System.out.println("Select Room");
+                } else {
+                    checkoutButton.setDisable(false);
+                }
+            }
+        }));
         WebEngine webEngine = webview.getEngine();
         webEngine.loadContent("<iframe width=\"350\" height=\"240\" src=\"https://www.youtube.com/embed/XyNlqQId-nk\" " +
                 "frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\"></iframe>");
