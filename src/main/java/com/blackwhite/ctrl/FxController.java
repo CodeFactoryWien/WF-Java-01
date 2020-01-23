@@ -7,10 +7,19 @@ import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class FxController implements Initializable {
+    @FXML
+    private TextField breakfastService;
+    @FXML
+    private CheckBox wlanService;
+    @FXML
+    private CheckBox bedService;
+    @FXML
+    private DatePicker datepicker;
     @FXML
     private TextField checkoutRoom;
     @FXML
@@ -293,7 +302,19 @@ public class FxController implements Initializable {
     }
 
     public void checkGuestsOut() {
-        
+        int wlan = 0;
+        int bed = 0;
+
+        int roomNumb = Integer.parseInt(checkoutRoom.getText());
+        Date checkoutDay = java.sql.Date.valueOf(datepicker.getValue());
+        int breakfast = Integer.parseInt(breakfastService.getText());
+        if(wlanService.isSelected()){
+            wlan = 1;
+        }
+        if(bedService.isSelected()){
+            bed = 1;
+        }
+
     }
 
     public void closeConnection() throws SQLException {

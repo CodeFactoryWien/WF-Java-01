@@ -243,13 +243,13 @@
               <padding>
                 <Insets bottom="15.0" left="15.0" right="15.0" top="100.0" />
               </padding>
-              <CheckBox mnemonicParsing="false" text="WLAN"/>
-              <CheckBox mnemonicParsing="false" text="Extra Bed"/>
+              <CheckBox mnemonicParsing="false" text="WLAN" fx:id="wlanService"/>
+              <CheckBox mnemonicParsing="false" text="Extra Bed" fx:id="bedService"/>
               <HBox prefHeight="100.0" prefWidth="200.0">
                 <HBox.margin>
                   <Insets right="5.0" fx:id="x6"/>
                 </HBox.margin>
-                <TextField prefHeight="17.0" prefWidth="30.0" HBox.margin="$x6" text="0"/>
+                <TextField prefHeight="17.0" prefWidth="30.0" HBox.margin="$x6" text="0" fx:id="breakfastService"/>
                 <Label text="Breakfast"/>
               </HBox>
             </VBox>
