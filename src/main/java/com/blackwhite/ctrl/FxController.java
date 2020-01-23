@@ -13,6 +13,8 @@ import java.util.ResourceBundle;
 
 public class FxController implements Initializable {
     @FXML
+    private Button checkoutButton;
+    @FXML
     private TextField breakfastService;
     @FXML
     private CheckBox wlanService;
