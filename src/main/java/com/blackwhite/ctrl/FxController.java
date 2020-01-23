@@ -302,19 +302,16 @@ public class FxController implements Initializable {
     }
 
     public void checkGuestsOut() {
-        int wlan = 0;
-        int bed = 0;
-
-        int roomNumb = Integer.parseInt(checkoutRoom.getText());
+        GuestBooking booking = checkoutList.getSelectionModel().getSelectedItem();
         Date checkoutDay = java.sql.Date.valueOf(datepicker.getValue());
+        boolean wlan = wlanService.isSelected();
+        boolean bed = bedService.isSelected();
         int breakfast = Integer.parseInt(breakfastService.getText());
-        if(wlanService.isSelected()){
-            wlan = 1;
-        }
-        if(bedService.isSelected()){
-            bed = 1;
-        }
 
+        int finalPrice = checkinDB.checkout(booking, checkoutDay, breakfast, wlan, bed);
+
+        // TODO: show pop-up with final price
+        // TODO: update lists with availableRooms, availableGuests, availablePayments, checkInRooms, checkOutRooms
     }
 
     public void closeConnection() throws SQLException {
