@@ -64,6 +64,7 @@ public class GuestDAO {
         guest.setEmail(email);
         guest.setAddress(address);
         guest.setDocNumber(docNumber);
+        guests.add(guest);
         return guest;
     }
 
