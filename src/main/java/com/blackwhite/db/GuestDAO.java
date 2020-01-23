@@ -40,14 +40,14 @@ public class GuestDAO {
             guest.setEmail(data.getString("email"));
             guest.setAddress(data.getString("address"));
             guest.setId(data.getInt("id"));
-            guest.setDocNumber(data.getInt("doc_number"));
+            guest.setDocNumber(data.getString("doc_number"));
             guests.add(guest);
 
         }
         return FXCollections.observableArrayList(guests);
     }
 
-    public Guest addGuest (String firstName, String lastName, String email, String address, int docNumber) throws SQLException {
+    public Guest addGuest (String firstName, String lastName, String email, String address, String docNumber) throws SQLException {
         String sql="INSERT INTO guest (id, first_name, last_name, email, address, doc_number) VALUES (?,?,?,?,?,?);";
         PreparedStatement pstm = db.getConnection().prepareStatement(sql);
         pstm.setInt(1, guests.get(guests.size()-1).getId()+1);
@@ -55,7 +55,7 @@ public class GuestDAO {
         pstm.setString(3, lastName);
         pstm.setString(4, email);
         pstm.setString(5, address);
-        pstm.setInt(6, docNumber);
+        pstm.setString(6, docNumber);
         pstm.executeUpdate();
         Guest guest = new Guest();
         guest.setId(guests.get(guests.size()-1).getId()+1);
@@ -81,7 +81,7 @@ public class GuestDAO {
         }
     }
 
-    public boolean updateGuest (int id, String firstName, String lastName, String email, String address, int docNumber) {
+    public boolean updateGuest (int id, String firstName, String lastName, String email, String address, String docNumber) {
         try {
             String sql="UPDATE guest SET first_name=?, last_name=?, email=?, address=?, doc_number=?  WHERE id=?;";
             PreparedStatement pstm = db.getConnection().prepareStatement(sql);
@@ -89,7 +89,7 @@ public class GuestDAO {
             pstm.setString(2, lastName);
             pstm.setString(3, email);
             pstm.setString(4, address);
-            pstm.setInt(5, docNumber);
+            pstm.setString(5, docNumber);
             pstm.setInt(6, id);
             pstm.executeUpdate();
             return true;

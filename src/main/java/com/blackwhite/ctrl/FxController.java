@@ -115,7 +115,7 @@ public class FxController implements Initializable {
             lastnameid.setText(newValue.getLastName());
             emailid.setText(newValue.getEmail());
             addressid.setText(newValue.getAddress());
-            documentid.setText(Integer.toString(newValue.getDocNumber()));
+            documentid.setText(newValue.getDocNumber());
         });
         paymentlist.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
             amountid.setText(Integer.toString(newValue.getAmount()));
@@ -262,7 +262,7 @@ public class FxController implements Initializable {
     private void addGuest(){
         try {
             guestlist.getItems().add(guestDB.addGuest(firstnameid.getText(), lastnameid.getText(),
-                    emailid.getText(), addressid.getText(), Integer.parseInt(documentid.getText())));
+                    emailid.getText(), addressid.getText(), documentid.getText()));
             mainGuest.setItems(checkinDB.getAvailableGuests());
             additionalGuests.setItems(mainGuest.getItems());
         } catch (SQLException e) {
@@ -292,7 +292,7 @@ public class FxController implements Initializable {
         String lastName = lastnameid.getText();
         String email = emailid.getText();
         String address = addressid.getText();
-        int docNumber = Integer.parseInt(documentid.getText());
+        String docNumber = documentid.getText();
         if(guestDB.updateGuest(selectedGuest.getId(), firstName, lastName, email, address, docNumber)){
             selectedGuest.setFirstName(firstName);
             selectedGuest.setLastName(lastName);

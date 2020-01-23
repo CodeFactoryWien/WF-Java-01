@@ -9,7 +9,7 @@ public class Guest {
     private String lastName;
     private String email;
     private String address;
-    private int docNumber;
+    private String docNumber;
     private int id;
 
     @Id
@@ -59,11 +59,11 @@ public class Guest {
     }
 
     @Column(name = "DOC_NUMBER")
-    public int getDocNumber() {
+    public String getDocNumber() {
         return docNumber;
     }
 
-    public void setDocNumber(int docNumber) {
+    public void setDocNumber(String docNumber) {
         this.docNumber = docNumber;
     }
 
