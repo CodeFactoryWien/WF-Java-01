@@ -260,7 +260,7 @@
             <padding>
               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
-            <Button mnemonicParsing="false" text="Check out" onAction="#checkGuestsOut"/>
+            <Button mnemonicParsing="false" text="Check out" fx:id="checkoutButton" onAction="#checkGuestsOut"/>
           </HBox>
           <HBox prefHeight="100.0" prefWidth="200.0">
             <ImageView fitHeight="143.74999237060547" fitWidth="143.74999237060547" pickOnBounds="true"
