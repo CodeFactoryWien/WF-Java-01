@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Window;
+
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -100,12 +102,7 @@ public class FxController implements Initializable {
             methodid.setItems(paymentDB.getMethod());
             statusid.setItems(paymentDB.getStatus());
             paymentlist.setItems(paymentDB.getAllPayments());
-            availableRoomsList.setItems(checkinDB.getAvailableRooms());
-            mainGuest.setItems(checkinDB.getAvailableGuests());
-            paymentAvailable.setItems(checkinDB.getPaymentAvailable());
-            checkedInList.setItems(checkinDB.getOccupiedRooms());
-            checkoutList.setItems(checkinDB.getOccupiedRooms());
-            additionalGuests.setItems(mainGuest.getItems());
+            updateLists();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -322,11 +319,34 @@ public class FxController implements Initializable {
         boolean wlan = wlanService.isSelected();
         boolean bed = bedService.isSelected();
         int breakfast = Integer.parseInt(breakfastService.getText());
-
         int finalPrice = checkinDB.checkout(booking, checkoutDay, breakfast, wlan, bed);
-
+        checkoutRoom.clear();
+        datepicker.getEditor().clear();
+        wlanService.setSelected(false);
+        bedService.setSelected(false);
+        breakfastService.setText(String.valueOf(0));
         // TODO: show pop-up with final price
-        // TODO: update lists with availableRooms, availableGuests, availablePayments, checkInRooms, checkOutRooms
+        Window owner = checkoutButton.getScene().getWindow();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Check-out");
+        alert.setHeaderText(null);
+        alert.setContentText("Amount to be paid: "+finalPrice);
+        alert.initOwner(owner);
+        alert.show();
+        try {
+            updateLists();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateLists() throws SQLException {
+        availableRoomsList.setItems(checkinDB.getAvailableRooms());
+        mainGuest.setItems(checkinDB.getAvailableGuests());
+        paymentAvailable.setItems(checkinDB.getPaymentAvailable());
+        checkedInList.setItems(checkinDB.getOccupiedRooms());
+        checkoutList.setItems(checkinDB.getOccupiedRooms());
+        additionalGuests.setItems(mainGuest.getItems());
     }
 
     public void closeConnection() throws SQLException {

@@ -1,10 +1,11 @@
 package com.blackwhite.db;
 
+import javafx.collections.ObservableList;
 import com.blackwhite.ctrl.DbController;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.sql.*;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class CheckinDAO {
     private DbController db;
@@ -33,7 +34,7 @@ public class CheckinDAO {
     public ObservableList<Room> getAvailableRooms() throws SQLException {
         String sql1 = "SELECT * FROM type;";
         ResultSet data1 = statement.executeQuery(sql1);
-
+        types.clear();
         while (data1.next()) {
             RoomType type = new RoomType();
             type.setTypeID(data1.getInt("id"));
@@ -79,6 +80,7 @@ public class CheckinDAO {
             Payment payment = new Payment();
             payment.setId(data.getInt("id"));
             payment.setSystemId(data.getString("payment_system_id"));
+            payment.setAmount(data.getInt("amount"));
             payments.add(payment);
         }
         return FXCollections.observableArrayList(payments);
@@ -182,6 +184,81 @@ public class CheckinDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public int checkout (GuestBooking booking, Date checkoutDate, int breakfast, boolean wlan, boolean extrabed){
+        int roomCosts = calcRoomCosts(booking, checkoutDate);
+        int finalPrice = calcPrice(roomCosts, breakfast, wlan, extrabed);
+        long now = System.currentTimeMillis();
+        Date checkout = new Date(now);
+        int payID = booking.getBooking().getPayment_id();
+        try {
+            String sql = "UPDATE room SET isAvailable = '1' WHERE room_number = ?;";
+            PreparedStatement pstm = db.getConnection().prepareStatement(sql);
+            pstm.setInt(1, booking.getBooking().getRoom_id());
+            pstm.executeUpdate();
+            String sql2 = "UPDATE booking SET checkout_date = ?, price = ? WHERE id = ?;";
+            PreparedStatement pstm2 = db.getConnection().prepareStatement(sql2);
+            pstm2.setDate(1, checkout);
+            pstm2.setInt(2, finalPrice);
+            pstm2.setInt(3, booking.getBookingID());
+            pstm2.executeUpdate();
+            String sql3 = "UPDATE payment SET amount = ? WHERE id = ?;";
+            PreparedStatement pstm3 = db.getConnection().prepareStatement(sql3);
+            pstm3.setInt(1, finalPrice+booking.getBooking().getPaymentBooked().getAmount());
+            pstm3.setInt(2, payID);
+            pstm3.executeUpdate();
+            String sql4 = "SELECT COUNT(*) as bookings FROM booking WHERE payment_id =? AND checkout_date IS NULL;";
+            PreparedStatement pstm4 = db.getConnection().prepareStatement(sql4);
+            pstm4.setInt(1, payID);
+            ResultSet data = pstm4.executeQuery();
+            while (data.next()){
+                if(data.getInt("bookings")==0){
+                    String sql5 = "UPDATE payment SET payment_status_id=0 WHERE id=?;";
+                    PreparedStatement pstm5 = db.getConnection().prepareStatement(sql5);
+                    pstm5.setInt(1, payID);
+                    pstm5.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return finalPrice;
+    }
+
+    private int calcPrice(int roomCosts, int breakfast, boolean wlan, boolean extrabed){
+        int finalCost = roomCosts;
+        try {
+            if(breakfast>0){
+                String sql = "SELECT * FROM services WHERE name='Breakfast';";
+                ResultSet data = statement.executeQuery(sql);
+                if (data.next()) {
+                    finalCost+=data.getInt("price")*breakfast;
+                }
+            }
+            if(wlan){
+                String sql = "SELECT * FROM services WHERE name='WIFI';";
+                ResultSet data = statement.executeQuery(sql);
+                if (data.next()) {
+                    finalCost+=data.getInt("price");
+                }
+            }
+            if(extrabed){
+                String sql = "SELECT * FROM services WHERE name='Extra Bed';";
+                ResultSet data = statement.executeQuery(sql);
+                if (data.next()) {
+                    finalCost+=data.getInt("price");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return finalCost;
+    }
+
+    private int calcRoomCosts(GuestBooking booking, Date checkoutDate){
+        long nights = booking.getBooking().getCheckin().toLocalDate().until(checkoutDate.toLocalDate(), ChronoUnit.DAYS);
+        return (int) (nights*booking.getBooking().getRoomBooked().getType().getPrice());
     }
 
     private Room newRoom (ResultSet data) throws SQLException {
