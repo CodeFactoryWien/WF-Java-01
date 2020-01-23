@@ -1,14 +1,15 @@
 package com.blackwhite.db;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "PAYMENT_METHOD")
 public class PaymentMethod {
     private int id;
     private String name;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -17,7 +18,7 @@ public class PaymentMethod {
         this.id = id;
     }
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }

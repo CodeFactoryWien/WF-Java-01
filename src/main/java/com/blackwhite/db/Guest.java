@@ -1,7 +1,10 @@
 package com.blackwhite.db;
 
-public class Guest {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "GUEST")
+public class Guest {
     private String firstName;
     private String lastName;
     private String email;
@@ -9,6 +12,17 @@ public class Guest {
     private int docNumber;
     private int id;
 
+    @Id
+    @Column(name = "ID")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Column(name = "FIRST_NAME")
     public String getFirstName() {
         return firstName;
     }
@@ -17,6 +31,7 @@ public class Guest {
         this.firstName = firstName;
     }
 
+    @Column(name = "LAST_NAME")
     public String getLastName() {
         return lastName;
     }
@@ -25,6 +40,7 @@ public class Guest {
         this.lastName = lastName;
     }
 
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -33,6 +49,7 @@ public class Guest {
         this.email = email;
     }
 
+    @Column(name = "ADDRESS")
     public String getAddress() {
         return address;
     }
@@ -41,20 +58,13 @@ public class Guest {
         this.address = address;
     }
 
+    @Column(name = "DOC_NUMBER")
     public int getDocNumber() {
         return docNumber;
     }
 
     public void setDocNumber(int docNumber) {
         this.docNumber = docNumber;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2020 at 01:01 PM
+-- Generation Time: Jan 23, 2020 at 01:57 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -42,13 +42,11 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`id`, `room_id`, `payment_id`, `price`, `checkin_date`, `checkout_date`) VALUES
-(1, 3, 1, NULL, '2020-01-14', NULL),
-(2, 10, 2, NULL, '2020-01-14', NULL),
-(3, 7, 3, NULL, '2020-01-14', NULL),
-(19, 4, 4, NULL, '2020-01-22', NULL),
-(25, 5, 4, NULL, '2020-01-22', NULL),
-(26, 6, 3, NULL, '2020-01-22', NULL),
-(27, 512, 5, NULL, '2020-01-22', NULL);
+(28, 202, 1, NULL, '2020-01-23', NULL),
+(29, 402, 2, NULL, '2020-01-23', NULL),
+(30, 303, 3, 110, '2020-01-23', '2020-01-23'),
+(31, 305, 4, NULL, '2020-01-23', NULL),
+(32, 102, 4, NULL, '2020-01-23', NULL);
 
 -- --------------------------------------------------------
 
@@ -83,7 +81,8 @@ INSERT INTO `guest` (`id`, `first_name`, `last_name`, `email`, `address`, `doc_n
 (10, 'Earl', 'Hall', 'earlhall938@gmail.com', 'Waldstrasse 48, 4030 Felling', '18190191'),
 (11, 'Ann', 'Perez', 'annperez1988@gmx.at', 'Rossmarkt 64, 1210 Langenzersdorf', '39483911'),
 (12, 'Marlin', 'Estes', 'marli.estes@gmx.at', 'Steinamangerer Strasse 21, 4342 Pitzing', '241894967'),
-(13, 'Joe', 'Doe', 'joe.doe@mail.com', 'none', '12343256');
+(13, 'Joe', 'Doe', 'joe.doe@mail.com', 'none', '12343256'),
+(14, 'Jane', 'Doe', 'jane.doe@mail.com', 'right here', '987654');
 
 -- --------------------------------------------------------
 
@@ -102,24 +101,13 @@ CREATE TABLE `guest_booking` (
 --
 
 INSERT INTO `guest_booking` (`booking_id`, `guest_id`, `iscontactperson`) VALUES
-(1, 1, 1),
-(2, 3, 0),
-(2, 4, 0),
-(2, 7, 0),
-(2, 8, 0),
-(2, 9, 0),
-(2, 10, 1),
-(2, 11, 0),
-(3, 2, 1),
-(3, 6, 0),
-(3, 10, 0),
-(10, 1, 1),
-(19, 9, 1),
-(19, 12, 0),
-(25, 1, 1),
-(26, 7, 1),
-(26, 11, 0),
-(27, 13, 1);
+(28, 1, 0),
+(28, 13, 1),
+(29, 9, 1),
+(30, 5, 1),
+(31, 11, 1),
+(31, 12, 0),
+(32, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +130,7 @@ CREATE TABLE `payment` (
 INSERT INTO `payment` (`id`, `payment_method_id`, `payment_status_id`, `payment_system_id`, `amount`) VALUES
 (1, 3, 1, 'BK123EX987', 0),
 (2, 1, 1, 'BK123EX999', 0),
-(3, 4, 1, 'BK123EX911', 0),
+(3, 4, 0, 'BK123EX911', 110),
 (4, 1, 1, 'ABC123456Z', 0),
 (5, 4, 1, 'XYZ12234DF', 0);
 
@@ -184,7 +172,7 @@ CREATE TABLE `payment_status` (
 --
 
 INSERT INTO `payment_status` (`id`, `name`) VALUES
-(0, 'payed'),
+(0, 'paid'),
 (1, 'open');
 
 -- --------------------------------------------------------
@@ -211,7 +199,7 @@ INSERT INTO `room` (`room_number`, `type_id`, `size`, `isAvailable`) VALUES
 (104, 1, 22, 0),
 (105, 2, 35, 0),
 (201, 3, 56, 1),
-(202, 3, 55, 1),
+(202, 3, 55, 0),
 (203, 4, 30, 1),
 (204, 4, 30, 1),
 (205, 1, 27, 1),
@@ -219,9 +207,9 @@ INSERT INTO `room` (`room_number`, `type_id`, `size`, `isAvailable`) VALUES
 (302, 2, 23, 1),
 (303, 0, 14, 1),
 (304, 0, 15, 1),
-(305, 1, 21, 1),
+(305, 1, 21, 0),
 (401, 2, 35, 1),
-(402, 2, 36, 1),
+(402, 2, 36, 0),
 (403, 3, 55, 1),
 (404, 4, 30, 1),
 (501, 3, 80, 1),
@@ -346,7 +334,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `payment`

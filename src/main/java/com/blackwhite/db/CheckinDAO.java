@@ -35,15 +35,7 @@ public class CheckinDAO {
         String sql1 = "SELECT * FROM type;";
         ResultSet data1 = statement.executeQuery(sql1);
         types.clear();
-        while (data1.next()) {
-            RoomType type = new RoomType();
-            type.setTypeID(data1.getInt("id"));
-            type.setCapacity(data1.getInt("capacity"));
-            type.setPrice(data1.getInt("price"));
-            type.setEquipment(data1.getString("equipment"));
-            type.setDescription(data1.getString("description"));
-            types.add(type);
-        }
+        RoomDAO.createRooms(data1, types);
 
         String sql ="SELECT * from Room WHERE isAvailable = 1;";
         ResultSet data = statement.executeQuery(sql);
@@ -73,7 +65,7 @@ public class CheckinDAO {
 
     public ObservableList<Payment> getPaymentAvailable() throws SQLException {
         String sql = "SELECT * from payment JOIN payment_status ON payment.payment_status_id = payment_status.id " +
-                "WHERE payment_status.name<>'payed' ORDER BY payment.id DESC";
+                "WHERE payment_status.name<>'paid' ORDER BY payment.id DESC";
         ResultSet data = statement.executeQuery(sql);
         payments.clear();
         while (data.next()) {

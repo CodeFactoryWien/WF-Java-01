@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Window;
-
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -101,7 +100,6 @@ public class FxController implements Initializable {
             guestlist.setItems(guestDB.getAllGuests());
             methodid.setItems(paymentDB.getMethod());
             statusid.setItems(paymentDB.getStatus());
-            paymentlist.setItems(paymentDB.getAllPayments());
             updateLists();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -161,21 +159,32 @@ public class FxController implements Initializable {
 
     @FXML
     private void createRoom(){
-        Room room = roomDB.addRoom(Integer.parseInt(roomNumberContent.getText()),
-                typeList.getValue().getTypeID(), Integer.parseInt(sizeContent.getText()));
-        roomList.getItems().add(room);
-        availableRoomsList.getItems().add(room);
-    }
-    @FXML
-    private void deleteRoom() throws SQLException {
-        if(roomDB.deleteRoom(roomList.getSelectionModel().getSelectedItem())){
-            roomList.getItems().remove(roomList.getSelectionModel().getSelectedItem());
-            availableRoomsList.setItems(checkinDB.getAvailableRooms());
+        try {
+            Room room = roomDB.addRoom(Integer.parseInt(roomNumberContent.getText()),
+                    typeList.getValue().getTypeID(), Integer.parseInt(sizeContent.getText()));
+            roomList.getItems().add(room);
+            availableRoomsList.getItems().add(room);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showErrorAlert();
         }
     }
 
     @FXML
-    private void updateRoom() throws SQLException {
+    private void deleteRoom() {
+        if(roomDB.deleteRoom(roomList.getSelectionModel().getSelectedItem())){
+            roomList.getItems().remove(roomList.getSelectionModel().getSelectedItem());
+            try {
+                availableRoomsList.setItems(checkinDB.getAvailableRooms());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showErrorAlert();
+            }
+        }
+    }
+
+    @FXML
+    private void updateRoom() {
         Room selectedRoom = roomList.getSelectionModel().getSelectedItem();
         int newRoomNumber = Integer.parseInt(roomNumberContent.getText());
         int roomType = typeList.getValue().getTypeID();
@@ -186,18 +195,24 @@ public class FxController implements Initializable {
             selectedRoom.setType(typeList.getValue());
             selectedRoom.setSize(roomSize);
             roomList.refresh();
-            availableRoomsList.setItems(checkinDB.getAvailableRooms());
+            try {
+                availableRoomsList.setItems(checkinDB.getAvailableRooms());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showErrorAlert();
+            }
         }
     }
 
     @FXML
     private void createPayment(){
-        paymentlist.getItems().add(paymentDB.addPayment(methodid.getValue().getId(),
-                statusid.getValue().getId(), Integer.parseInt(amountid.getText()), systemid.getText()));
         try {
+            paymentlist.getItems().add(paymentDB.addPayment(methodid.getValue().getId(),
+                    statusid.getValue().getId(), Integer.parseInt(amountid.getText()), systemid.getText()));
             paymentAvailable.setItems(checkinDB.getPaymentAvailable());
         } catch (SQLException e) {
             e.printStackTrace();
+            showErrorAlert();
         }
     }
 
@@ -218,6 +233,7 @@ public class FxController implements Initializable {
                 paymentAvailable.setItems(checkinDB.getPaymentAvailable());
             } catch (SQLException e) {
                 e.printStackTrace();
+                showErrorAlert();
             }
         }
         systemid.setDisable(false);
@@ -231,19 +247,21 @@ public class FxController implements Initializable {
                 paymentAvailable.setItems(checkinDB.getPaymentAvailable());
             } catch (SQLException e) {
                 e.printStackTrace();
+                showErrorAlert();
             }
         }
     }
 
     @FXML
     private void addGuest(){
-        guestlist.getItems().add(guestDB.addGuest(firstnameid.getText(), lastnameid.getText(),
-                emailid.getText(), addressid.getText(), Integer.parseInt(documentid.getText())));
         try {
+            guestlist.getItems().add(guestDB.addGuest(firstnameid.getText(), lastnameid.getText(),
+                    emailid.getText(), addressid.getText(), Integer.parseInt(documentid.getText())));
             mainGuest.setItems(checkinDB.getAvailableGuests());
             additionalGuests.setItems(mainGuest.getItems());
         } catch (SQLException e) {
             e.printStackTrace();
+            showErrorAlert();
         }
     }
 
@@ -256,6 +274,7 @@ public class FxController implements Initializable {
                 additionalGuests.setItems(mainGuest.getItems());
             } catch (SQLException e) {
                 e.printStackTrace();
+                showErrorAlert();
             }
         }
     }
@@ -280,12 +299,13 @@ public class FxController implements Initializable {
                 additionalGuests.setItems(mainGuest.getItems());
             } catch (SQLException e) {
                 e.printStackTrace();
+                showErrorAlert();
             }
         }
     }
 
     @FXML
-    private void checkGuestsIn() throws SQLException {
+    private void checkGuestsIn() {
         if (checkinDB.checkIn(Integer.parseInt(bookedRoom.getText()), mainGuest.getValue(),
                 paymentAvailable.getValue())) {
             availableRoomsList.getItems().remove(availableRoomsList.getSelectionModel().getSelectedItem());
@@ -293,9 +313,14 @@ public class FxController implements Initializable {
             additionalGuests.getItems().remove(mainGuest.getValue());
             mainGuest.getItems().remove(mainGuest.getValue());
             paymentAvailable.getSelectionModel().clearSelection();
-            checkedInList.setItems(checkinDB.getOccupiedRooms());
-            checkoutList.setItems(checkinDB.getOccupiedRooms());
-            tabPane.getSelectionModel().select(checkinGuestsTab);
+            try {
+                checkedInList.setItems(checkinDB.getOccupiedRooms());
+                checkoutList.setItems(checkinDB.getOccupiedRooms());
+                tabPane.getSelectionModel().select(checkinGuestsTab);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showErrorAlert();
+            }
         }
     }
 
@@ -309,6 +334,7 @@ public class FxController implements Initializable {
                 addGuestsList.setItems(checkinDB.getRoomGuests(checkedInList.getSelectionModel().getSelectedItem().getBookingID()));
             } catch (SQLException e) {
                 e.printStackTrace();
+                showErrorAlert();
             }
         }
     }
@@ -325,7 +351,7 @@ public class FxController implements Initializable {
         wlanService.setSelected(false);
         bedService.setSelected(false);
         breakfastService.setText(String.valueOf(0));
-        // TODO: show pop-up with final price
+        // Show pop-up with final price for room
         Window owner = checkoutButton.getScene().getWindow();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Check-out");
@@ -337,16 +363,28 @@ public class FxController implements Initializable {
             updateLists();
         } catch (SQLException e) {
             e.printStackTrace();
+            showErrorAlert();
         }
     }
 
     private void updateLists() throws SQLException {
+        paymentlist.setItems(paymentDB.getAllPayments());
         availableRoomsList.setItems(checkinDB.getAvailableRooms());
         mainGuest.setItems(checkinDB.getAvailableGuests());
         paymentAvailable.setItems(checkinDB.getPaymentAvailable());
         checkedInList.setItems(checkinDB.getOccupiedRooms());
         checkoutList.setItems(checkinDB.getOccupiedRooms());
         additionalGuests.setItems(mainGuest.getItems());
+    }
+
+    private void showErrorAlert(){
+        Window owner = checkoutButton.getScene().getWindow();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("An error occurred! Please reload the application");
+        alert.initOwner(owner);
+        alert.show();
     }
 
     public void closeConnection() throws SQLException {

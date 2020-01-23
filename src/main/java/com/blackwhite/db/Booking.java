@@ -3,8 +3,9 @@ package com.blackwhite.db;
 import java.sql.Date;
 import javax.persistence.*;
 
+@Entity
+@Table(name = "BOOKING")
 public class Booking {
-
     private int id;
     private int room_id;
     private int payment_id;

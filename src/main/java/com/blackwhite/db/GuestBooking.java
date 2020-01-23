@@ -12,7 +12,7 @@ public class GuestBooking {
     private Guest guest;
 
     @Id
-    @Column(name = "booking_id")
+    @Column(name = "BOOKING_ID")
     public int getBookingID() {
         return bookingID;
     }
@@ -22,7 +22,7 @@ public class GuestBooking {
     }
 
     @Id
-    @Column(name = "guest_id")
+    @Column(name = "GUEST_ID")
     public int getGuestID() {
         return guestID;
     }
@@ -31,7 +31,7 @@ public class GuestBooking {
         this.guestID = guestID;
     }
 
-    @Column(name = "iscontactperson")
+    @Column(name = "ISCONTACTPERSON")
     public boolean isContactPerson(){
         return isContactPerson;
     }

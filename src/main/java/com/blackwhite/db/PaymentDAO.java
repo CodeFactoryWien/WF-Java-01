@@ -13,7 +13,7 @@ public class PaymentDAO {
     private DbController db;
     private Statement statement;
     private ArrayList<PaymentMethod> methods = new ArrayList<>();
-    private ArrayList<PaymentStatus> statuse = new ArrayList<>();
+    private ArrayList<PaymentStatus> statuses = new ArrayList<>();
 
     public PaymentDAO () throws SQLException, ClassNotFoundException {
         init();
@@ -42,19 +42,23 @@ public class PaymentDAO {
             payment.setPaymentStatus(data.getInt("payment_status_id"));
             payment.setSystemId(data.getString("payment_system_id"));
             payment.setAmount(data.getInt("amount"));
-            for (PaymentMethod paymentM: methods) {
-                if(paymentM.getId()==payment.getPaymentMethod()) {
-                    payment.setPayMethod(paymentM);
-                }
-            }
-            for (PaymentStatus paymentS: statuse) {
-                if(paymentS.getId()==payment.getPaymentStatus()) {
-                    payment.setPayStatus(paymentS);
-                }
-            }
+            addMethodStatus(payment);
             payments.add(payment);
         }
         return FXCollections.observableArrayList(payments);
+    }
+
+    private void addMethodStatus(Payment payment) {
+        for (PaymentMethod paymentM: methods) {
+            if(paymentM.getId()==payment.getPaymentMethod()) {
+                payment.setPayMethod(paymentM);
+            }
+        }
+        for (PaymentStatus paymentS: statuses) {
+            if(paymentS.getId()==payment.getPaymentStatus()) {
+                payment.setPayStatus(paymentS);
+            }
+        }
     }
 
     public ObservableList<PaymentMethod> getMethod() throws SQLException {
@@ -78,52 +82,38 @@ public class PaymentDAO {
             PaymentStatus status = new PaymentStatus();
             status.setId(data.getInt("id"));
             status.setName(data.getString("name"));
-            statuse.add(status);
+            statuses.add(status);
         }
-        return FXCollections.observableList(statuse);
+        return FXCollections.observableList(statuses);
     }
 
-    public Payment addPayment (int method, int status, int amount, String systemId) {
-        try {
-            String sql3="INSERT INTO payment (payment_method_id, payment_status_id, amount, payment_system_id) VALUES (?,?,?,?);";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql3, Statement.RETURN_GENERATED_KEYS);
-            pstm.setInt(1, method);
-            pstm.setInt(2, status);
-            pstm.setInt(3, amount);
-            pstm.setString(4, systemId);
-            pstm.executeUpdate();
-            ResultSet result = pstm.getGeneratedKeys();
-            if(result.next()){
-                Payment payment = new Payment();
-                payment.setId(result.getInt(1));
-                payment.setPaymentMethod(method);
-                payment.setPaymentStatus(status);
-                payment.setAmount(amount);
-                payment.setSystemId(systemId);
-                for (PaymentMethod paymentM: methods) {
-                    if(paymentM.getId()==payment.getPaymentMethod()) {
-                        payment.setPayMethod(paymentM);
-                    }
-                }
-                for (PaymentStatus paymentS: statuse) {
-                    if(paymentS.getId()==payment.getPaymentStatus()) {
-                        payment.setPayStatus(paymentS);
-                    }
-                }
-                return payment;
-            }
-            return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+    public Payment addPayment (int method, int status, int amount, String systemId) throws SQLException {
+        String sql="INSERT INTO payment (payment_method_id, payment_status_id, amount, payment_system_id) VALUES (?,?,?,?);";
+        PreparedStatement pstm = db.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        pstm.setInt(1, method);
+        pstm.setInt(2, status);
+        pstm.setInt(3, amount);
+        pstm.setString(4, systemId);
+        pstm.executeUpdate();
+        ResultSet result = pstm.getGeneratedKeys();
+        if(result.next()){
+            Payment payment = new Payment();
+            payment.setId(result.getInt(1));
+            payment.setPaymentMethod(method);
+            payment.setPaymentStatus(status);
+            payment.setAmount(amount);
+            payment.setSystemId(systemId);
+            addMethodStatus(payment);
+            return payment;
         }
+        throw new SQLException();
     }
 
     public boolean deletePayment (Payment payment) {
         try {
                 if (payment.getPaymentStatus()==1){
-                    String sql4 = "DELETE FROM payment WHERE id=?;";
-                    PreparedStatement pstm = db.getConnection().prepareStatement(sql4);
+                    String sql = "DELETE FROM payment WHERE id=?;";
+                    PreparedStatement pstm = db.getConnection().prepareStatement(sql);
                     pstm.setInt(1, payment.getId());
                     pstm.executeUpdate();
                     return true;
@@ -138,8 +128,8 @@ public class PaymentDAO {
 
     public boolean updatePayment (int methodid, int statusid, int amount, String systemid) {
         try {
-            String sql5="UPDATE payment SET payment_method_id=?, payment_status_id=?, amount=? WHERE payment_system_id=?;";
-            PreparedStatement pstm = db.getConnection().prepareStatement(sql5);
+            String sql="UPDATE payment SET payment_method_id=?, payment_status_id=?, amount=? WHERE payment_system_id=?;";
+            PreparedStatement pstm = db.getConnection().prepareStatement(sql);
             pstm.setInt(1, methodid);
             pstm.setInt(2, statusid);
             pstm.setInt(3, amount);

@@ -2,6 +2,8 @@ package com.blackwhite.db;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "TYPE")
 public class RoomType {
     private int typeID;
     private int capacity;
@@ -10,7 +12,7 @@ public class RoomType {
     private String description;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     public int getTypeID() {
         return typeID;
     }
@@ -19,7 +21,7 @@ public class RoomType {
         this.typeID = typeID;
     }
 
-    @Column(name = "capacity")
+    @Column(name = "CAPACITY")
     public int getCapacity() {
         return capacity;
     }
@@ -28,7 +30,7 @@ public class RoomType {
         this.capacity = capacity;
     }
 
-    @Column(name = "price")
+    @Column(name = "PRICE")
     public int getPrice() {
         return price;
     }
@@ -37,7 +39,7 @@ public class RoomType {
         this.price = price;
     }
 
-    @Column(name = "equipment")
+    @Column(name = "EQUIPMENT")
     public String getEquipment() {
         return equipment;
     }
@@ -46,7 +48,7 @@ public class RoomType {
         this.equipment = equipment;
     }
 
-    @Column(name = "description")
+    @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
     }

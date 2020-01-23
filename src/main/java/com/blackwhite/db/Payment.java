@@ -1,8 +1,9 @@
 package com.blackwhite.db;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "PAYMENT")
 public class Payment {
     private int id;
     private int paymentMethod;
@@ -13,7 +14,7 @@ public class Payment {
     private PaymentMethod payMethod;
 
     @Id
-    @Column(name="id")
+    @Column(name="ID")
     public int getId() {
         return id;
     }
@@ -22,7 +23,7 @@ public class Payment {
         this.id = id;
     }
 
-    @Column(name="payment_method_id")
+    @Column(name="PAYMENT_METHOD_ID")
     public int getPaymentMethod() {
         return paymentMethod;
     }
@@ -31,7 +32,7 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    @Column(name="payment_status_id")
+    @Column(name="PAYMENT_STATUS_ID")
     public int getPaymentStatus() {
         return paymentStatus;
     }
@@ -40,7 +41,7 @@ public class Payment {
         this.paymentStatus = paymentStatus;
     }
 
-    @Column(name="amount")
+    @Column(name="AMOUNT")
     public int getAmount() {
         return amount;
     }
@@ -49,7 +50,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    @Column(name="payment_system_id")
+    @Column(name="PAYMENT_SYSTEM_ID")
     public String getSystemId() {
         return systemId;
     }
