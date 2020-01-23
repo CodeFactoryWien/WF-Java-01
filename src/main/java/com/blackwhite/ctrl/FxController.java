@@ -138,6 +138,7 @@ public class FxController implements Initializable {
             }
         });
         checkoutButton.setDisable(true);
+        checkoutRoom.setDisable(true);
         checkoutList.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             checkoutRoom.setText(Integer.toString(newValue.getBooking().getRoom_id()));
             checkoutButton.setDisable(true);
